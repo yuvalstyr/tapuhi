@@ -1,0 +1,36 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+  "peacock.color": "#47ada5",
+  "debug.node.autoAttach": "off",
+  "cSpell.words": ["entrypoint", "postgresql", "testid", "yuval"],
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.hg/store/**": true
+  },
+  "prisma.plugin.nextjs.hasPrompted": true,
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#4c3080",
+    "activityBar.activeBorder": "#000000",
+    "activityBar.background": "#4c3080",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#000000",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "statusBar.background": "#36225b",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#4c3080",
+    "titleBar.activeBackground": "#36225b",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#36225b99",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.remoteColor": "#36225b",
+  "colorize.languages": [
+    "javascript",
+    "typesctipt"
+  ]
+}
