@@ -36,17 +36,19 @@ declare global {
 }
 
 export interface NexusGenInputs {
-  InputCreateWorkout: { // input type
-    date: string; // String!
-    gender: NexusGenEnums['Gender']; // Gender!
-    time: string; // String!
-    type: NexusGenEnums['WorkoutType']; // WorkoutType!
+  InputCreateItem: { // input type
+    category: string; // String!
+    description: string; // String!
+    id?: string | null; // String
+    name: string; // String!
+    saleType: NexusGenEnums['SaleType']; // SaleType!
+    snHerzelia?: string | null; // String
+    snWebSite?: string | null; // String
   }
 }
 
 export interface NexusGenEnums {
-  Gender: "FEMALE" | "MALE"
-  WorkoutType: "PERSONAL" | "TEAM"
+  SaleType: "KG" | "PACK" | "UNIT" | "WIEGHT_PACK"
 }
 
 export interface NexusGenScalars {
@@ -60,22 +62,36 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  CreateManyResponse: { // root type
+    errors?: Array<string | null> | null; // [String]
+    successCount?: number | null; // Int
+  }
+  Item: { // root type
+    category: string; // String!
+    description: string; // String!
+    id?: number | null; // Int
+    name: string; // String!
+    OrderItems?: Array<NexusGenRootTypes['OrderItem'] | null> | null; // [OrderItem]
+    saleType?: NexusGenEnums['SaleType'] | null; // SaleType
+    snHerzelia?: string | null; // String
+    snWebSite?: string | null; // String
+  }
   Mutation: {};
+  Order: { // root type
+    date?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: number | null; // Int
+    items?: Array<NexusGenRootTypes['OrderItem'] | null> | null; // [OrderItem]
+    supplierId?: number | null; // Int
+  }
+  OrderItem: { // root type
+    id?: number | null; // Int
+    itemId?: string | null; // String
+    orderId?: string | null; // String
+    quantity?: number | null; // Float
+    receieptNumber?: string | null; // String
+    supplierId?: number | null; // Int
+  }
   Query: {};
-  User: { // root type
-    email?: string | null; // String
-    gender?: string | null; // String
-    id?: number | null; // Int
-    name?: string | null; // String
-    phone?: string | null; // String
-  }
-  Workout: { // root type
-    gender?: NexusGenEnums['Gender'] | null; // Gender
-    id?: number | null; // Int
-    isoDateTime?: NexusGenScalars['DateTime'] | null; // DateTime
-    localDateTime?: string | null; // String
-    type?: string | null; // String
-  }
 }
 
 export interface NexusGenInterfaces {
@@ -89,118 +105,83 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  CreateManyResponse: { // field return type
+    errors: Array<string | null> | null; // [String]
+    successCount: number | null; // Int
+  }
+  Item: { // field return type
+    category: string; // String!
+    description: string; // String!
+    id: number | null; // Int
+    name: string; // String!
+    OrderItems: Array<NexusGenRootTypes['OrderItem'] | null> | null; // [OrderItem]
+    saleType: NexusGenEnums['SaleType'] | null; // SaleType
+    snHerzelia: string | null; // String
+    snWebSite: string | null; // String
+  }
   Mutation: { // field return type
-    addWeekToAllWorkouts: number | null; // Int
-    bookWorkout: NexusGenRootTypes['User'] | null; // User
-    createManyWorkouts: string | null; // String
-    createWorkout: NexusGenRootTypes['Workout'] | null; // Workout
-    deleteAllWorkout: number | null; // Int
-    deleteUser: NexusGenRootTypes['User'] | null; // User
-    deleteworkoutIdTrainees: NexusGenRootTypes['Workout'] | null; // Workout
-    signup: NexusGenRootTypes['User'] | null; // User
-    unBookedWorkout: NexusGenRootTypes['User'] | null; // User
-    updateWorkoutDate: NexusGenRootTypes['Workout'] | null; // Workout
+    createManyItems: NexusGenRootTypes['CreateManyResponse'] | null; // CreateManyResponse
+  }
+  Order: { // field return type
+    date: NexusGenScalars['DateTime'] | null; // DateTime
+    id: number | null; // Int
+    items: Array<NexusGenRootTypes['OrderItem'] | null> | null; // [OrderItem]
+    supplierId: number | null; // Int
+  }
+  OrderItem: { // field return type
+    id: number | null; // Int
+    itemId: string | null; // String
+    orderId: string | null; // String
+    quantity: number | null; // Float
+    receieptNumber: string | null; // String
+    supplierId: number | null; // Int
   }
   Query: { // field return type
-    users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
-    workouts: Array<NexusGenRootTypes['Workout'] | null> | null; // [Workout]
-    workoutsPerWeek: Array<NexusGenRootTypes['Workout'] | null> | null; // [Workout]
-  }
-  User: { // field return type
-    email: string | null; // String
-    gender: string | null; // String
-    id: number | null; // Int
-    name: string | null; // String
-    phone: string | null; // String
-    workouts: Array<NexusGenRootTypes['Workout'] | null> | null; // [Workout]
-  }
-  Workout: { // field return type
-    gender: NexusGenEnums['Gender'] | null; // Gender
-    id: number | null; // Int
-    isoDateTime: NexusGenScalars['DateTime'] | null; // DateTime
-    localDateTime: string | null; // String
-    trainees: Array<NexusGenRootTypes['User'] | null> | null; // [User]
-    type: string | null; // String
+    orders: Array<NexusGenRootTypes['Order'] | null> | null; // [Order]
   }
 }
 
 export interface NexusGenFieldTypeNames {
-  Mutation: { // field return type name
-    addWeekToAllWorkouts: 'Int'
-    bookWorkout: 'User'
-    createManyWorkouts: 'String'
-    createWorkout: 'Workout'
-    deleteAllWorkout: 'Int'
-    deleteUser: 'User'
-    deleteworkoutIdTrainees: 'Workout'
-    signup: 'User'
-    unBookedWorkout: 'User'
-    updateWorkoutDate: 'Workout'
+  CreateManyResponse: { // field return type name
+    errors: 'String'
+    successCount: 'Int'
   }
-  Query: { // field return type name
-    users: 'User'
-    workouts: 'Workout'
-    workoutsPerWeek: 'Workout'
-  }
-  User: { // field return type name
-    email: 'String'
-    gender: 'String'
+  Item: { // field return type name
+    category: 'String'
+    description: 'String'
     id: 'Int'
     name: 'String'
-    phone: 'String'
-    workouts: 'Workout'
+    OrderItems: 'OrderItem'
+    saleType: 'SaleType'
+    snHerzelia: 'String'
+    snWebSite: 'String'
   }
-  Workout: { // field return type name
-    gender: 'Gender'
+  Mutation: { // field return type name
+    createManyItems: 'CreateManyResponse'
+  }
+  Order: { // field return type name
+    date: 'DateTime'
     id: 'Int'
-    isoDateTime: 'DateTime'
-    localDateTime: 'String'
-    trainees: 'User'
-    type: 'String'
+    items: 'OrderItem'
+    supplierId: 'Int'
+  }
+  OrderItem: { // field return type name
+    id: 'Int'
+    itemId: 'String'
+    orderId: 'String'
+    quantity: 'Float'
+    receieptNumber: 'String'
+    supplierId: 'Int'
+  }
+  Query: { // field return type name
+    orders: 'Order'
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
-    bookWorkout: { // args
-      traineeId: number; // Int!
-      workoutId?: number | null; // Int
-    }
-    createManyWorkouts: { // args
-      data?: Array<NexusGenInputs['InputCreateWorkout'] | null> | null; // [InputCreateWorkout]
-    }
-    createWorkout: { // args
-      data?: NexusGenInputs['InputCreateWorkout'] | null; // InputCreateWorkout
-    }
-    deleteUser: { // args
-      userId?: number | null; // Int
-    }
-    deleteworkoutIdTrainees: { // args
-      workoutId?: number | null; // Int
-    }
-    signup: { // args
-      email: string; // String!
-      gender: string; // String!
-      name: string; // String!
-      phone: string; // String!
-    }
-    unBookedWorkout: { // args
-      traineeId?: number | null; // Int
-      workoutId?: number | null; // Int
-    }
-    updateWorkoutDate: { // args
-      date?: string | null; // String
-      workoutId?: number | null; // Int
-    }
-  }
-  Query: {
-    users: { // args
-      id?: number | null; // Int
-      name?: string | null; // String
-    }
-    workouts: { // args
-      date?: NexusGenEnums['WorkoutType'] | null; // WorkoutType
-      id?: number | null; // Int
+    createManyItems: { // args
+      data?: Array<NexusGenInputs['InputCreateItem'] | null> | null; // [InputCreateItem]
     }
   }
 }

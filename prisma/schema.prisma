@@ -7,6 +7,51 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum saleType {
+  KG
+  PACK
+  WIEGHT_PACK
+  UNIT
+}
+
+model OrderItem {
+  id            Int      @id @default(autoincrement())
+  item          Item     @relation(fields: [itemId], references: [id])
+  quantity      Float
+  receiptNumber String
+  Order         Order    @relation(fields: [orderId], references: [id])
+  orderId       Int
+  itemId        String
+  supplier      Supplier @relation(fields: [supplierId], references: [id])
+  supplierId    Int
+}
+
+model Item {
+  id          String      @id @default(uuid())
+  name        String
+  description String
+  category    String
+  snWebSite   String?
+  snHerzelia  String?
+  saleType    saleType
+  OrderItems  OrderItem[]
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  date       DateTime
+  supplier   Supplier    @relation(fields: [supplierId], references: [id])
+  supplierId Int
+  items      OrderItem[]
+}
+
+model Supplier {
+  id        Int         @id @default(autoincrement())
+  name      String
+  Order     Order[]
+  OrderItem OrderItem[]
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   name      String?

@@ -1,5 +1,4 @@
 import { isBefore, isSameDay, parse } from 'date-fns'
-import { DatesField } from '../components/ScheduleForm'
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const getDatesBetweenDates = (
@@ -46,7 +45,7 @@ export function reduce(reducerFn, initialValue, array) {
 }
 
 // getting array of object and find object by date: first || middle || last
-export function getIndexByDate(fields: DatesField[], date: Date) {
+export function getIndexByDate(fields: any[], date: Date) {
   const field = head(fields)
   if (length(fields) === 0) return 1
   const parsedDate = parse(field.date, 'yy-MM-dd', new Date())
