@@ -13,8 +13,10 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^0.16.0",
+    "@hookform/error-message": "0.0.5",
     "@prisma/client": "^2.13.1",
     "@theme-ui/presets": "^0.3.5",
+    "@types/react-select": "^3.1.2",
     "@xstate/inspect": "^0.4.1",
     "@xstate/react": "^1.2.2",
     "apollo-server-micro": "^2.19.1",
@@ -36,6 +38,7 @@
     "react-dom": "^17.0.1",
     "react-hook-form": "^6.14.0",
     "react-icons": "^4.1.0",
+    "react-select": "^3.1.1",
     "react-swipeable-views": "^0.13.9",
     "reflect-metadata": "^0.1.13",
     "swr": "^0.3.11",

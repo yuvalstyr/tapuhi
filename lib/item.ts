@@ -1,4 +1,6 @@
-export const itemArray = [
+import { Item } from "@prisma/client";
+
+export const itemsArray:Item[] = [
   {
     name: 'עגבניה אשכולות',
     description: 'עגבניה ישראלית איכותית, המומלצת ביותר',
@@ -3091,7 +3093,7 @@ export const itemArray = [
     name: 'מאש מונבט',
     description: 'מאש מונבט מתוצרת ישראלית איכותית',
     category: 'אורגני',
-    id: 600110,
+    id: '600110',
     saleType: 'PACK',
     snWebSite: '',
     snHerzelia: '',
@@ -3100,7 +3102,7 @@ export const itemArray = [
     name: 'חומוס מונבט',
     description: 'חומוס מונבט מתוצרת ישראלית איכותית',
     category: 'אורגני',
-    id: 600111,
+    id: '600111',
     saleType: 'PACK',
     snWebSite: '',
     snHerzelia: '',

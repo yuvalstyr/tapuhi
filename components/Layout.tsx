@@ -1,5 +1,4 @@
-import { jsx, Image, Flex, Label, Avatar, Text } from 'theme-ui'
-import { useFetchUser } from '../lib/user'
+import { jsx, Image, Flex, Text } from 'theme-ui'
 import useWindowSize from '../lib/useWindows'
 
 /** @jsxRuntime classic /
@@ -11,10 +10,10 @@ function Logo() {
       <Image
         src={'./logo.png'}
         sx={{
-          width: 72,
-          height: 72,
-          maxWidth: 72,
-          minWidth: 72,
+          width: [46, 72],
+          height: [46, 72],
+          maxWidth: [46, 72],
+          minWidth: [46, 72],
         }}
       />
     </Flex>
@@ -51,7 +50,6 @@ const Layout: React.FC = ({ children }) => {
           display: 'grid',
           width: '100%',
           justifyContent: 'center',
-          // alignContent: 'center',
         }}
       >
         {children}
@@ -63,7 +61,7 @@ const Layout: React.FC = ({ children }) => {
           zIndex: '200',
         }}
       >
-        <Text>nav</Text>
+        <Text>{`_`}</Text>
       </footer>
     </div>
   )
