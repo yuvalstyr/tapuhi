@@ -54,6 +54,7 @@ export const Select: React.FC<ISelectProps> = ({
           validate: () => (getValues(name)?.value ? true : false),
         }}
       />
+
       <FormError name={name} errors={errors} />
     </Grid>
   )

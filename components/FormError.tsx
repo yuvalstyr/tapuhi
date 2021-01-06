@@ -17,7 +17,11 @@ const FormError: React.FC<IFromErrorProps> = ({ errors, name }) => {
       color={'error'}
       sx={{ gridColumn: '1 / span 2', fontSize: 1, fontWeight: 'bold' }}
     >
-      <ErrorMessage errors={errors} name={name} />
+      {errors[name]?.type == 'validate' ? (
+        'שדה חובה'
+      ) : (
+        <ErrorMessage {...{ errors, name }} />
+      )}
     </Text>
   )
 }
