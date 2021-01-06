@@ -30,7 +30,7 @@ const ItemList: React.FC<IItemList> = ({ fields, register, remove }) => {
   const [editable, setEditable] = React.useState(false)
   return (
     <Card sx={{ flexShrink: 1, overflow: 'hidden auto' }}>
-      <Flex>
+      <Flex sx={{ position: 'sticky', top: 0, background: 'secondary' }}>
         <Heading sx={{ flexGrow: 1 }}>רשימת מוצרים</Heading>
         <IconButton
           type="button"
@@ -52,7 +52,8 @@ const ItemList: React.FC<IItemList> = ({ fields, register, remove }) => {
                 columns={4}
                 sx={{
                   justifyContent: 'space-between',
-                  gridTemplateColumns: '3fr 1fr 1fr ',
+                  gridTemplateColumns: '3fr 2fr 2fr ',
+                  flexShrink: 1,
                 }}
               >
                 <Heading as="h3">{field.name}</Heading>

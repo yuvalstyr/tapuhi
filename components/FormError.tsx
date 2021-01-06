@@ -9,9 +9,9 @@ interface IFromErrorProps {
 }
 
 const FormError: React.FC<IFromErrorProps> = ({ errors, name }) => {
-  console.log('errors', errors)
   if (!errors) return null
   if (!Object.keys(errors).length) return null
+  console.log('errors', errors)
   return (
     <Text
       color={'error'}
