@@ -1,10 +1,12 @@
 import { saleType } from '@prisma/client'
 import React from 'react'
-import { ArrayField } from 'react-hook-form'
+import { ArrayField, useForm } from 'react-hook-form'
 import { MdDelete } from 'react-icons/md'
-import { Grid, IconButton, Input } from 'theme-ui'
+import { Button, Grid, Heading, IconButton, Input, Label } from 'theme-ui'
 import Icon from './Icon'
-import { Register, Remove } from '../type'
+import { Append, Ioptions, Register, Remove } from '../type'
+import { Select } from './Select'
+import FormError from './FormError'
 
 interface IItem {
   name: string
@@ -87,7 +89,6 @@ export const AddItem: React.FC<AddItemProps> = ({ items, append }) => {
     errors,
     reset,
     setValue,
-    formState,
   } = useForm({
     mode: 'onTouched',
     defaultValues,

@@ -11,8 +11,8 @@ function useWindowSize(): IWindows {
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
   const [windowSize, setWindowSize] = React.useState<IWindows>({
-    width: undefined,
-    height: undefined,
+    width: 0,
+    height: 0,
   })
 
   useIsomorphicLayoutEffect(() => {

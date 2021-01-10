@@ -18,7 +18,7 @@ const ReceptionForm: React.FC = () => {
     defaultValues,
   })
   const { fields, append, remove } = useFieldArray({ control, name: 'items' })
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data: any) => console.log(data)
 
   const items = itemsArray.map((i) => ({ value: i.name, label: i.name }))
   return (

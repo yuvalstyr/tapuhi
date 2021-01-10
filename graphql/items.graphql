@@ -1,0 +1,7 @@
+query items {
+  findManyItem {
+    id
+    name
+    description
+  }
+}

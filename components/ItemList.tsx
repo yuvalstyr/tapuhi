@@ -21,7 +21,7 @@ export const saleTypeTranslate: Partial<Record<saleType, string>> = {
   WIEGHT_PACK: 'יחידה שקולה',
 }
 
-function getSaleType(itemsArray: Item[], item) {
+function getSaleType(itemsArray: Item[], item: string) {
   const saleType = itemsArray.filter((i) => i.name === item)[0]?.saleType
   return saleTypeTranslate[saleType]
 }
@@ -42,6 +42,7 @@ const ItemList: React.FC<IItemList> = ({ fields, register, remove }) => {
       </Flex>
 
       {fields.map((field, index) => {
+        const saleType = field.name ? getSaleType(itemsArray, field.name) : ''
         return (
           <React.Fragment key={field.id}>
             <Divider />
@@ -57,10 +58,7 @@ const ItemList: React.FC<IItemList> = ({ fields, register, remove }) => {
                 }}
               >
                 <Heading as="h3">{field.name}</Heading>
-                <Label>{`${field.quantity} ${getSaleType(
-                  itemsArray,
-                  field.name,
-                )}`}</Label>
+                <Label>{`${field.quantity} ${saleType}`}</Label>
                 <Label>{`${field.price} ש"ח`}</Label>
               </Grid>
             )}

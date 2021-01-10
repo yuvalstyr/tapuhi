@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React from 'react'
+import React, { ReactNode } from 'react'
 import fetch from 'isomorphic-unfetch'
 
 // Use a global to save the user, so we don't have to fetch it again after page navigations
-let userState
+let userState: any
 
 const User = React.createContext({ user: null, loading: false })
 
@@ -17,7 +16,12 @@ export const fetchUser = async () => {
   return userState
 }
 
-export const UserProvider = ({ value, children }) => {
+export type Props = {
+  children: ReactNode
+  value: any
+}
+
+export const UserProvider = ({ value, children }: Props) => {
   const { user } = value
 
   // If the user was fetched in SSR add it to userState so we don't fetch it again

@@ -5,7 +5,7 @@ export const getDatesBetweenDates = (
   startDate: Date,
   endDate: Date,
 ): Date[] => {
-  let dates = []
+  let dates: Date[] = []
   //to avoid modifying the original date
   const theDate = new Date(startDate)
   while (theDate <= endDate) {
@@ -30,22 +30,31 @@ export function tail<T>(array: T[]): T[] {
   return array.slice(1)
 }
 
-export function concat(array1, array2) {
+export function concat<T>(array1: T[], array2: T[]) {
   return array1.concat(array2)
 }
 
-export function length(array) {
+export function length<T>(array: T[]) {
   return array.length
 }
 
-export function reduce(reducerFn, initialValue, array) {
+export function reduce<TElement, TResult>(
+  reducerFn: (result: TResult, el: TElement) => TResult,
+  initialValue: TResult,
+  array: TElement[],
+): TResult {
   if (length(array) === 0) return initialValue
   const newInitialValue = reducerFn(initialValue, head(array))
   return reduce(reducerFn, newInitialValue, tail(array))
 }
 
-// getting array of object and find object by date: first || middle || last
-export function getIndexByDate(fields: any[], date: Date) {
+type IFieldIndex = {
+  [key: string]: unknown
+  date: string
+}
+
+// getting array of object and find object index by date field
+export function getIndexByDate(fields: IFieldIndex[], date: Date): number {
   const field = head(fields)
   if (length(fields) === 0) return 1
   const parsedDate = parse(field.date, 'yy-MM-dd', new Date())
@@ -54,4 +63,16 @@ export function getIndexByDate(fields: any[], date: Date) {
 
   const counter = getIndexByDate(tail(fields), date)
   return counter < 0 ? counter : counter + 1
+}
+
+export function convertPromiseAll<T>(result: PromiseSettledResult<T>[]) {
+  const successCount = result.filter((r) => r.status === 'fulfilled').length
+  const errors: string[] = result
+    .filter((r) => r.status === 'rejected')
+    .map((r) => {
+      if (r.status === 'rejected') {
+        return r.reason
+      }
+    })
+  return { errors, successCount }
 }

@@ -1,8 +1,8 @@
-import { jsx, Image, Flex, Text } from 'theme-ui'
 import useWindowSize from '../lib/useWindows'
-
-/** @jsxRuntime classic /
+/** @jsxRuntime classic */
 /** @jsx jsx */
+
+import { jsx, Image, Flex, Text } from 'theme-ui'
 
 function Logo() {
   return (

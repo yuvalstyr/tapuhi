@@ -2,8 +2,8 @@ import { he } from 'date-fns/locale'
 import React from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import { Control, Controller } from 'react-hook-form'
-import { Box, Grid, Heading, Input, Label, Text } from 'theme-ui'
-import { Errors, Ioptions, Register } from '../type'
+import { Box, Grid, Heading, Input, Label } from 'theme-ui'
+import { Errors, GetValues, Ioptions, Register } from '../type'
 import FormError from './FormError'
 import { Select } from './Select'
 
@@ -12,6 +12,7 @@ interface IProps {
   control: Control
   errors: Errors
   register: Register
+  getValues: GetValues
 }
 
 export const OrderDetails: React.FC<IProps> = ({
