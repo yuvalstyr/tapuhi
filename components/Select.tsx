@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import ReactSelect from 'react-select'
 import { Grid, Label } from 'theme-ui'
-import { Ioptions } from '../type'
+import { Control, Errors, GetValues, Ioptions } from '../type'
 import FormError from './FormError'
 
 export const reactSelectStyles = {
@@ -22,24 +22,37 @@ export const reactSelectStyles = {
 }
 
 interface ISelectProps {
-  items: Ioptions[]
-  label: string
+  options: Ioptions[]
+  label?: string
   name: string
+  errors: Errors
+  getValues: GetValues
+  control: Control
+  defaultValue?: number | string
 }
 
-export const Select: React.FC<ISelectProps> = ({ items, label, name }) => {
-  const { errors, getValues, control } = useFormContext()
+export const Select: React.FC<ISelectProps> = ({
+  options,
+  label,
+  name,
+  errors,
+  getValues,
+  control,
+  defaultValue,
+}) => {
+  const gridTemplateColumns = label ? '1fr 3fr' : '1fr'
+  const defaultOption = defaultValue
+    ? { value: defaultValue, label: defaultValue }
+    : { value: '', label: '' }
   return (
-    <Grid
-      columns={2}
-      sx={{ gridTemplateColumns: '1fr 3fr', alignItems: 'center' }}
-    >
-      <Label>{label}</Label>
+    <Grid columns={2} sx={{ gridTemplateColumns, alignItems: 'center' }}>
+      {label && <Label>{label}</Label>}
       <Controller
         inputId="react-select"
         as={ReactSelect}
-        options={items}
+        options={options}
         name={name}
+        defaultValue={defaultOption}
         isClearable
         control={control}
         rules={{

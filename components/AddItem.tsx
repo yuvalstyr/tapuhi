@@ -17,7 +17,15 @@ const defaultValues = {
 }
 
 export const AddItem: React.FC<AddItemProps> = ({ items, append }) => {
-  const { register, getValues, trigger, errors, reset, setValue } = useForm({
+  const {
+    register,
+    getValues,
+    trigger,
+    errors,
+    reset,
+    setValue,
+    control,
+  } = useForm({
     mode: 'onTouched',
     defaultValues,
   })
@@ -26,7 +34,7 @@ export const AddItem: React.FC<AddItemProps> = ({ items, append }) => {
     const isValid = await trigger(['quantity', 'price', 'name'])
     if (isValid) {
       const data = getValues()
-      append({ ...data, name: data.name.value })
+      append({ ...data })
       setValue('name', '')
       await reset(defaultValues)
     }
@@ -35,7 +43,14 @@ export const AddItem: React.FC<AddItemProps> = ({ items, append }) => {
   return (
     <Grid columns={[1, 2]} sx={{ gridGap: [1, 4] }}>
       <Heading>הוספת מוצר </Heading>
-      <Select items={items} name="name" label="פריט" />
+      <Select
+        options={items}
+        name="name"
+        label="פריט"
+        control={control}
+        errors={errors}
+        getValues={getValues}
+      />
       <Grid
         columns={2}
         sx={{ gridTemplateColumns: '1fr 3fr', alignItems: 'center' }}

@@ -1,10 +1,10 @@
 import React from 'react'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
 import { Box, Button, Card } from 'theme-ui'
-import { itemsArray } from '../lib/item'
 import { AddItem } from './AddItem'
 import ItemList from './ItemList'
 import { OrderDetails } from './OrderDetails'
+import { FormProps } from '../pages/index'
 
 const defaultValues = {
   supplier: { value: '', label: '' },
@@ -12,7 +12,10 @@ const defaultValues = {
   orderNumber: '',
 }
 
-const ReceptionForm: React.FC = () => {
+const ReceptionForm: React.FC<FormProps> = ({
+  items: itemsArray,
+  suppliers: supplierArray,
+}) => {
   const methods = useForm({
     mode: 'onTouched',
     defaultValues,
@@ -22,6 +25,7 @@ const ReceptionForm: React.FC = () => {
   const onSubmit = (data: any) => console.log(data)
 
   const items = itemsArray.map((i) => ({ value: i.name, label: i.name }))
+  const suppliers = supplierArray.map((i) => ({ value: i.name, label: i.name }))
   return (
     <FormProvider {...methods}>
       <Box
@@ -37,12 +41,12 @@ const ReceptionForm: React.FC = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <Card sx={{ flexShrink: 0 }}>
-          <OrderDetails {...{ items }} />
+          <OrderDetails suppliers={suppliers} />
         </Card>
         <Card sx={{ flexShrink: 0 }}>
-          <AddItem {...{ items, append }} />
+          <AddItem items={items} append={append} />
         </Card>
-        <ItemList {...{ fields, register, remove }} />
+        <ItemList {...{ fields, register, remove, items }} />
         <Button mb="1">צור הזמנה</Button>
       </Box>
     </FormProvider>

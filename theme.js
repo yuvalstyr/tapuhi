@@ -41,7 +41,7 @@ export const theme = {
       fontFamily: 'heading',
       fontWeight: 'heading',
       lineHeight: 'heading',
-      fontSize: [2, 30],
+      fontSize: [2, 3],
     },
   },
 }

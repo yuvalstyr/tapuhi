@@ -8,16 +8,23 @@ import FormError from './FormError'
 import { Select } from './Select'
 
 interface IProps {
-  items: Ioptions[]
+  suppliers: Ioptions[]
 }
 
-export const OrderDetails: React.FC<IProps> = ({ items }) => {
-  const { control, errors, register } = useFormContext()
+export const OrderDetails: React.FC<IProps> = ({ suppliers }) => {
+  const { control, errors, register, getValues } = useFormContext()
   registerLocale('he', he)
   return (
     <Grid sx={{ gridGap: [1, 4] }}>
       <Heading>פרטי הזמנה</Heading>
-      <Select items={items} name="supplier" label="ספק" />
+      <Select
+        options={suppliers}
+        name="supplier"
+        label="ספק"
+        control={control}
+        errors={errors}
+        getValues={getValues}
+      />
       <Grid
         columns={2}
         sx={{ gridTemplateColumns: '1fr 3fr', alignItems: 'center' }}
