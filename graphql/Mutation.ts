@@ -1,43 +1,72 @@
-import { list, mutationType } from 'nexus'
+import { arg, list, mutationType } from 'nexus'
 import prisma from '../lib/prisma'
-import { InputCreateItem } from './Input'
 
 export const Mutation = mutationType({
   definition(t) {
-    t.field('createManyItems', {
-      type: 'CreateManyResponse',
+    t.list.field('createManyItems', {
+      type: 'Item',
       args: {
-        data: list(InputCreateItem),
+        data: list('InputCreateItem'),
       },
-      resolve(_, { data }) {
-        const returnObj = {}
-        Promise.allSettled(
-          data.map(async (item) => {
-            await prisma.item.create({
-              data: {
-                ...item,
-              },
-            })
-            prisma.$disconnect()
-          }),
-        ).then((values) => {
-          const allValues = values
-            .filter((c) => c.status === 'fulfilled')
-            .map((c) => <PromiseFulfilledResult<unknown>>c)
-            .map((c) => c.value)
-          returnObj['successCount'] = allValues.length
-          console.log(allValues)
-          const failedResults = values
-            .filter((c) => c.status === 'rejected')
-            .map((c) => <PromiseRejectedResult>c)
-            .map((c) => c.reason)
-          returnObj['errors'] = failedResults
-          console.log(failedResults)
+      async resolve(_, { data }) {
+        const promiseArray = data.map(async (item) => {
+          return prisma.item.create({
+            data: {
+              ...item,
+            },
+          })
         })
-        return {
-          successCount: returnObj['successCount'],
-          errors: returnObj['errors'],
-        }
+
+        const result = await Promise.all(promiseArray)
+        prisma.$disconnect()
+        return result
+      },
+    })
+
+    t.field('createOrder', {
+      type: 'Order',
+      args: {
+        data: arg({ type: 'createOrderInput' }),
+      },
+      async resolve(_, { data }) {
+        const { order, orderItem } = data
+        // create order item array
+        const craeteOrderItem = orderItem.map((o) => ({
+          item: { connect: { id: o.itemId } },
+          quantity: o.quantity,
+          receiptNumber: o.receieptNumber,
+          supplier: { connect: { id: order.supplierId } },
+        }))
+        // create order with item object
+        const createdOrder = await prisma.order.create({
+          data: {
+            date: order.datetime,
+            supplier: { connect: { id: order.supplierId } },
+            items: {
+              create: craeteOrderItem,
+            },
+          },
+        })
+        t.list.field('createManySupplier', {
+          type: 'Supplier',
+          args: {
+            data: list('InputCreateSupplier'),
+          },
+          async resolve(_, { data }) {
+            const promiseArray = data.map(async (supplier) => {
+              return prisma.supplier.create({
+                data: {
+                  ...supplier,
+                },
+              })
+            })
+            const result = await Promise.all(promiseArray)
+            prisma.$disconnect()
+            return result
+          },
+        })
+
+        return createdOrder
       },
     })
   },

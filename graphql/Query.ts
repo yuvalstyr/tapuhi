@@ -9,5 +9,11 @@ export const Query = queryType({
         return prisma.order.findMany()
       },
     })
+    t.list.field('suppliers', {
+      type: 'Supplier',
+      resolve(t) {
+        return prisma.supplier.findMany()
+      },
+    })
   },
 })

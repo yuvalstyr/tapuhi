@@ -7,9 +7,19 @@ export const OrderItem = objectType({
     t.int('id')
     t.float('quantity')
     t.string('receieptNumber')
-    t.string('orderId')
+    t.int('orderId')
     t.string('itemId')
     t.int('supplierId')
+  },
+})
+export const Supplier = objectType({
+  name: 'Supplier',
+  definition(t) {
+    t.int('id')
+    t.string('name')
+    t.field('OrderItems', {
+      type: list(OrderItem),
+    })
   },
 })
 

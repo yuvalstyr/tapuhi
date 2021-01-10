@@ -45,6 +45,22 @@ export interface NexusGenInputs {
     snHerzelia?: string | null; // String
     snWebSite?: string | null; // String
   }
+  InputCreateSupplier: { // input type
+    name: string; // String!
+  }
+  OrderInput: { // input type
+    datetime: NexusGenScalars['DateTime']; // DateTime!
+    supplierId: number; // Int!
+  }
+  OrderItemInput: { // input type
+    itemId: string; // String!
+    quantity: number; // Float!
+    receieptNumber: string; // String!
+  }
+  createOrderInput: { // input type
+    order: NexusGenInputs['OrderInput']; // OrderInput!
+    orderItem: Array<NexusGenInputs['OrderItemInput'] | null>; // [OrderItemInput]!
+  }
 }
 
 export interface NexusGenEnums {
@@ -86,12 +102,17 @@ export interface NexusGenObjects {
   OrderItem: { // root type
     id?: number | null; // Int
     itemId?: string | null; // String
-    orderId?: string | null; // String
+    orderId?: number | null; // Int
     quantity?: number | null; // Float
     receieptNumber?: string | null; // String
     supplierId?: number | null; // Int
   }
   Query: {};
+  Supplier: { // root type
+    id?: number | null; // Int
+    name?: string | null; // String
+    OrderItems?: Array<NexusGenRootTypes['OrderItem'] | null> | null; // [OrderItem]
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -120,7 +141,8 @@ export interface NexusGenFieldTypes {
     snWebSite: string | null; // String
   }
   Mutation: { // field return type
-    createManyItems: NexusGenRootTypes['CreateManyResponse'] | null; // CreateManyResponse
+    createManyItems: Array<NexusGenRootTypes['Item'] | null> | null; // [Item]
+    createOrder: NexusGenRootTypes['Order'] | null; // Order
   }
   Order: { // field return type
     date: NexusGenScalars['DateTime'] | null; // DateTime
@@ -131,13 +153,19 @@ export interface NexusGenFieldTypes {
   OrderItem: { // field return type
     id: number | null; // Int
     itemId: string | null; // String
-    orderId: string | null; // String
+    orderId: number | null; // Int
     quantity: number | null; // Float
     receieptNumber: string | null; // String
     supplierId: number | null; // Int
   }
   Query: { // field return type
     orders: Array<NexusGenRootTypes['Order'] | null> | null; // [Order]
+    suppliers: Array<NexusGenRootTypes['Supplier'] | null> | null; // [Supplier]
+  }
+  Supplier: { // field return type
+    id: number | null; // Int
+    name: string | null; // String
+    OrderItems: Array<NexusGenRootTypes['OrderItem'] | null> | null; // [OrderItem]
   }
 }
 
@@ -157,7 +185,8 @@ export interface NexusGenFieldTypeNames {
     snWebSite: 'String'
   }
   Mutation: { // field return type name
-    createManyItems: 'CreateManyResponse'
+    createManyItems: 'Item'
+    createOrder: 'Order'
   }
   Order: { // field return type name
     date: 'DateTime'
@@ -168,13 +197,19 @@ export interface NexusGenFieldTypeNames {
   OrderItem: { // field return type name
     id: 'Int'
     itemId: 'String'
-    orderId: 'String'
+    orderId: 'Int'
     quantity: 'Float'
     receieptNumber: 'String'
     supplierId: 'Int'
   }
   Query: { // field return type name
     orders: 'Order'
+    suppliers: 'Supplier'
+  }
+  Supplier: { // field return type name
+    id: 'Int'
+    name: 'String'
+    OrderItems: 'OrderItem'
   }
 }
 
@@ -182,6 +217,9 @@ export interface NexusGenArgTypes {
   Mutation: {
     createManyItems: { // args
       data?: Array<NexusGenInputs['InputCreateItem'] | null> | null; // [InputCreateItem]
+    }
+    createOrder: { // args
+      data?: NexusGenInputs['createOrderInput'] | null; // createOrderInput
     }
   }
 }

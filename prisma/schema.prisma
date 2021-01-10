@@ -19,7 +19,7 @@ model OrderItem {
   item          Item     @relation(fields: [itemId], references: [id])
   quantity      Float
   receiptNumber String
-  Order         Order    @relation(fields: [orderId], references: [id])
+  order         Order    @relation(fields: [orderId], references: [id])
   orderId       Int
   itemId        String
   supplier      Supplier @relation(fields: [supplierId], references: [id])
@@ -34,7 +34,7 @@ model Item {
   snWebSite   String?
   snHerzelia  String?
   saleType    saleType
-  OrderItems  OrderItem[]
+  orderItems  OrderItem[]
 }
 
 model Order {
@@ -48,8 +48,8 @@ model Order {
 model Supplier {
   id        Int         @id @default(autoincrement())
   name      String
-  Order     Order[]
-  OrderItem OrderItem[]
+  order     Order[]
+  orderItem OrderItem[]
 }
 
 model User {

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, Grid, Heading, Input, Label } from 'theme-ui'
+import { isSSR } from '../lib/isSSR'
 import { Append, Ioptions } from '../type'
 import FormError from './FormError'
 import { Select } from './Select'
@@ -25,7 +26,6 @@ export const AddItem: React.FC<AddItemProps> = ({ items, append }) => {
     errors,
     reset,
     setValue,
-    formState,
   } = useForm({
     mode: 'onTouched',
     defaultValues,
@@ -48,6 +48,7 @@ export const AddItem: React.FC<AddItemProps> = ({ items, append }) => {
         {...{ items, control, errors, getValues }}
         name="name"
         label="פריט"
+        defaultValue=""
       />
       <Grid
         columns={2}

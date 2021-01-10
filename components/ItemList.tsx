@@ -6,12 +6,12 @@ import { Card, Divider, Flex, Grid, Heading, IconButton, Label } from 'theme-ui'
 import { itemsArray } from '../lib/item'
 import Icon from './Icon'
 import { ItemField, ItemRow } from './ItemRow'
-import { Register, Remove } from '../type'
+import { Ioptions, Register, Remove } from '../type'
 
 interface IItemList {
   fields: ItemField[]
-  register: Register
   remove: Remove
+  items: Ioptions[]
 }
 
 export const saleTypeTranslate: Partial<Record<saleType, string>> = {
@@ -26,10 +26,10 @@ function getSaleType(itemsArray: Item[], item) {
   return saleTypeTranslate[saleType]
 }
 
-const ItemList: React.FC<IItemList> = ({ fields, register, remove }) => {
+const ItemList: React.FC<IItemList> = ({ fields, items, remove }) => {
   const [editable, setEditable] = React.useState(false)
   return (
-    <Card sx={{ flexShrink: 1, overflow: 'hidden auto' }}>
+    <Card sx={{ flexShrink: 1, overflow: 'auto' }}>
       <Flex sx={{ position: 'sticky', top: 0, background: 'secondary' }}>
         <Heading sx={{ flexGrow: 1 }}>רשימת מוצרים</Heading>
         <IconButton
@@ -46,7 +46,7 @@ const ItemList: React.FC<IItemList> = ({ fields, register, remove }) => {
           <React.Fragment key={field.id}>
             <Divider />
             {editable ? (
-              <ItemRow {...{ field, index, register, remove }} />
+              <ItemRow {...{ field, index, remove, items }} />
             ) : (
               <Grid
                 columns={4}

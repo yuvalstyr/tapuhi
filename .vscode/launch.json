@@ -8,7 +8,7 @@
             "type": "pwa-chrome",
             "request": "launch",
             "name": "Debug Chrome on localhost",
-            "url": "http://localhost:3000",
+            "url": "http://localhost:3001",
             "sourceMapPathOverrides": {
                 "webpack://_N_E/*": "${webRoot}/*"
             }

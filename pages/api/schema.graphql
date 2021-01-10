@@ -7,6 +7,11 @@ type CreateManyResponse {
   successCount: Int
 }
 
+input createOrderInput {
+  order: OrderInput!
+  orderItem: [OrderItemInput]!
+}
+
 """
 A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
@@ -27,6 +32,10 @@ input InputCreateItem {
   snWebSite: String
 }
 
+input InputCreateSupplier {
+  name: String!
+}
+
 type Item {
   category: String!
   description: String!
@@ -39,7 +48,8 @@ type Item {
 }
 
 type Mutation {
-  createManyItems(data: [InputCreateItem]): CreateManyResponse
+  createManyItems(data: [InputCreateItem]): [Item]
+  createOrder(data: createOrderInput): Order
 }
 
 type Order {
@@ -49,17 +59,29 @@ type Order {
   supplierId: Int
 }
 
+input OrderInput {
+  datetime: DateTime!
+  supplierId: Int!
+}
+
 type OrderItem {
   id: Int
   itemId: String
-  orderId: String
+  orderId: Int
   quantity: Float
   receieptNumber: String
   supplierId: Int
 }
 
+input OrderItemInput {
+  itemId: String!
+  quantity: Float!
+  receieptNumber: String!
+}
+
 type Query {
   orders: [Order]
+  suppliers: [Supplier]
 }
 
 enum SaleType {
@@ -67,4 +89,10 @@ enum SaleType {
   PACK
   UNIT
   WIEGHT_PACK
+}
+
+type Supplier {
+  id: Int
+  name: String
+  OrderItems: [OrderItem]
 }

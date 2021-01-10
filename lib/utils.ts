@@ -55,3 +55,15 @@ export function getIndexByDate(fields: any[], date: Date) {
   const counter = getIndexByDate(tail(fields), date)
   return counter < 0 ? counter : counter + 1
 }
+
+export async function convertPromiseAll<T>(result: PromiseSettledResult<T>[]) {
+  const successCount = result.filter((r) => r.status === 'fulfilled').length
+  const errors: string[] = result
+    .filter((r) => r.status === 'rejected')
+    .map((r) => {
+      if (r.status === 'rejected') {
+        return r.reason
+      }
+    })
+  return { errors, successCount }
+}
