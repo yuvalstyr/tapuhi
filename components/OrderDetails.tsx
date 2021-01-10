@@ -1,36 +1,23 @@
 import { he } from 'date-fns/locale'
 import React from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
-import { Control, Controller } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import { Box, Grid, Heading, Input, Label } from 'theme-ui'
-import { Errors, GetValues, Ioptions, Register } from '../type'
+import { Ioptions } from '../type'
 import FormError from './FormError'
 import { Select } from './Select'
 
 interface IProps {
   items: Ioptions[]
-  control: Control
-  errors: Errors
-  register: Register
-  getValues: GetValues
 }
 
-export const OrderDetails: React.FC<IProps> = ({
-  items,
-  control,
-  errors,
-  register,
-  getValues,
-}) => {
+export const OrderDetails: React.FC<IProps> = ({ items }) => {
+  const { control, errors, register } = useFormContext()
   registerLocale('he', he)
   return (
     <Grid sx={{ gridGap: [1, 4] }}>
       <Heading>פרטי הזמנה</Heading>
-      <Select
-        {...{ items, control, errors, getValues }}
-        name="supplier"
-        label="ספק"
-      />
+      <Select items={items} name="supplier" label="ספק" />
       <Grid
         columns={2}
         sx={{ gridTemplateColumns: '1fr 3fr', alignItems: 'center' }}

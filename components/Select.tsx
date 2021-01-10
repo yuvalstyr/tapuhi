@@ -1,8 +1,8 @@
 import React, { CSSProperties } from 'react'
-import { Control, Controller } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import ReactSelect from 'react-select'
 import { Grid, Label } from 'theme-ui'
-import { Ioptions, Errors, GetValues } from '../type'
+import { Ioptions } from '../type'
 import FormError from './FormError'
 
 export const reactSelectStyles = {
@@ -22,22 +22,13 @@ export const reactSelectStyles = {
 }
 
 interface ISelectProps {
-  control: Control
   items: Ioptions[]
   label: string
   name: string
-  errors: Errors
-  getValues: GetValues
 }
 
-export const Select: React.FC<ISelectProps> = ({
-  control,
-  items,
-  label,
-  name,
-  errors,
-  getValues,
-}) => {
+export const Select: React.FC<ISelectProps> = ({ items, label, name }) => {
+  const { errors, getValues, control } = useFormContext()
   return (
     <Grid
       columns={2}
