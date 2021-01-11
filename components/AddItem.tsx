@@ -67,7 +67,6 @@ export const AddItem: React.FC<AddItemProps> = ({ items, append }) => {
             },
           })}
         />
-        <FormError name="quantity" errors={errors} />
       </Grid>
       <Grid
         columns={2}

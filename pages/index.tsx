@@ -1,9 +1,12 @@
 import prisma from '../lib/prisma'
 import { NextPage } from 'next'
 import React from 'react'
-import ReceptionForm from '../components/ReceptionForm'
+import dynamic from 'next/dynamic'
 import { Item, Supplier } from '@prisma/client'
-
+import ReceptionForm from '../components/ReceptionForm'
+// const NoSSRComponent = dynamic(() => import('../components/ReceptionForm'), {
+//   ssr: false,
+// })
 export interface FormProps {
   items: Item[]
   suppliers: Supplier[]

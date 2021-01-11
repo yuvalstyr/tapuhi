@@ -8,10 +8,16 @@ interface IFromErrorProps {
   errors: Errors
 }
 
+function getNumberBetweenBrackets(str: string) {
+  const regEx = /^.*?\([^\d]*(\d+)[^\d]*\).*$/
+  const result = regEx.exec(str)
+  return result?.length ? result[0] : ''
+}
+
 const FormError: React.FC<IFromErrorProps> = ({ errors, name }) => {
   if (!errors) return null
   if (!Object.keys(errors).length) return null
-  console.log('errors', errors)
+
   return (
     <Text
       color={'error'}

@@ -4,6 +4,7 @@ import { ArrayField, useFormContext } from 'react-hook-form'
 import { MdDelete } from 'react-icons/md'
 import { Grid, IconButton, Input } from 'theme-ui'
 import { Ioptions, Remove } from '../type'
+import FormError from './FormError'
 import Icon from './Icon'
 import { Select } from './Select'
 
@@ -21,7 +22,6 @@ interface IItemProps {
   index: number
   remove: Remove
   items: Ioptions[]
-  inputDispaly: string
 }
 
 export const ItemRow: React.FC<IItemProps> = ({
@@ -29,7 +29,6 @@ export const ItemRow: React.FC<IItemProps> = ({
   index,
   remove,
   items,
-  inputDispaly,
 }) => {
   const { control, register, errors, getValues } = useFormContext()
   return (
@@ -38,7 +37,6 @@ export const ItemRow: React.FC<IItemProps> = ({
       sx={{
         justifyContent: 'space-between',
         gridTemplateColumns: '3fr 1fr 1fr 1fr',
-        display: inputDispaly,
       }}
     >
       <Select
@@ -48,16 +46,28 @@ export const ItemRow: React.FC<IItemProps> = ({
         errors={errors}
         getValues={getValues}
         defaultValue={field?.name?.value}
+        attachToBodyTrue={true}
       />
 
       <Input
-        ref={register()}
+        ref={register({
+          required: { message: 'שדה חובה', value: true },
+          pattern: {
+            message: 'חייב להיות מספר',
+            value: /^[+-]?((\d+(\.\d{1,2})?))$/,
+          },
+        })}
         name={`items[${index}].quantity`}
         defaultValue={field.quantity}
       />
-
       <Input
-        ref={register()}
+        ref={register({
+          required: { message: 'שדה חובה', value: true },
+          pattern: {
+            message: 'חייב להיות מספר',
+            value: /^[+-]?((\d+(\.\d{1,2})?))$/,
+          },
+        })}
         name={`items[${index}].price`}
         defaultValue={field.price}
       />
