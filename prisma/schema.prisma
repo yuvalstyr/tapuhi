@@ -15,15 +15,15 @@ enum saleType {
 }
 
 model OrderItem {
-  id            Int      @id @default(autoincrement())
-  item          Item     @relation(fields: [itemId], references: [id])
-  quantity      Float
-  receiptNumber String
-  Order         Order    @relation(fields: [orderId], references: [id])
-  orderId       Int
-  itemId        String
-  supplier      Supplier @relation(fields: [supplierId], references: [id])
-  supplierId    Int
+  id         Int      @id @default(autoincrement())
+  item       Item     @relation(fields: [itemId], references: [id])
+  quantity   Float
+  price      Float
+  Order      Order    @relation(fields: [orderId], references: [id])
+  orderId    Int
+  itemId     String
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+  supplierId Int
 }
 
 model Item {
@@ -38,11 +38,12 @@ model Item {
 }
 
 model Order {
-  id         Int         @id @default(autoincrement())
-  date       DateTime
-  supplier   Supplier    @relation(fields: [supplierId], references: [id])
-  supplierId Int
-  items      OrderItem[]
+  id            Int         @id @default(autoincrement())
+  date          DateTime
+  supplier      Supplier    @relation(fields: [supplierId], references: [id])
+  supplierId    Int
+  receiptNumber String?
+  items         OrderItem[]
 }
 
 model Supplier {

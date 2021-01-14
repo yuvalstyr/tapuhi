@@ -29,7 +29,10 @@
     "titleBar.activeBackground": "#36225b",
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#36225b99",
-    "titleBar.inactiveForeground": "#e7e7e799"
+    "titleBar.inactiveForeground": "#e7e7e799",
+    "editorCursor.foreground": "#ffff00",
+    "terminalCursor.foreground": "#ffff00",
+    "editor.lineHighlightBorder": "#012B4D"
   },
   "peacock.remoteColor": "#36225b",
   "colorize.languages": [

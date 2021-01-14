@@ -250,6 +250,7 @@ export interface NexusGenInputs {
   OrderCreateInput: { // input type
     date: NexusGenScalars['DateTime']; // DateTime!
     items?: NexusGenInputs['OrderItemCreateManyWithoutOrderInput'] | null; // OrderItemCreateManyWithoutOrderInput
+    receiptNumber?: string | null; // String
     supplier: NexusGenInputs['SupplierCreateOneWithoutOrderInput']; // SupplierCreateOneWithoutOrderInput!
   }
   OrderCreateManyWithoutSupplierInput: { // input type
@@ -272,17 +273,19 @@ export interface NexusGenInputs {
   }
   OrderCreateWithoutItemsInput: { // input type
     date: NexusGenScalars['DateTime']; // DateTime!
+    receiptNumber?: string | null; // String
     supplier: NexusGenInputs['SupplierCreateOneWithoutOrderInput']; // SupplierCreateOneWithoutOrderInput!
   }
   OrderCreateWithoutSupplierInput: { // input type
     date: NexusGenScalars['DateTime']; // DateTime!
     items?: NexusGenInputs['OrderItemCreateManyWithoutOrderInput'] | null; // OrderItemCreateManyWithoutOrderInput
+    receiptNumber?: string | null; // String
   }
   OrderItemCreateInput: { // input type
     item: NexusGenInputs['ItemCreateOneWithoutOrderItemsInput']; // ItemCreateOneWithoutOrderItemsInput!
     Order: NexusGenInputs['OrderCreateOneWithoutItemsInput']; // OrderCreateOneWithoutItemsInput!
+    price: number; // Float!
     quantity: number; // Float!
-    receiptNumber: string; // String!
     supplier: NexusGenInputs['SupplierCreateOneWithoutOrderItemInput']; // SupplierCreateOneWithoutOrderItemInput!
   }
   OrderItemCreateManyWithoutItemInput: { // input type
@@ -314,21 +317,21 @@ export interface NexusGenInputs {
   }
   OrderItemCreateWithoutItemInput: { // input type
     Order: NexusGenInputs['OrderCreateOneWithoutItemsInput']; // OrderCreateOneWithoutItemsInput!
+    price: number; // Float!
     quantity: number; // Float!
-    receiptNumber: string; // String!
     supplier: NexusGenInputs['SupplierCreateOneWithoutOrderItemInput']; // SupplierCreateOneWithoutOrderItemInput!
   }
   OrderItemCreateWithoutOrderInput: { // input type
     item: NexusGenInputs['ItemCreateOneWithoutOrderItemsInput']; // ItemCreateOneWithoutOrderItemsInput!
+    price: number; // Float!
     quantity: number; // Float!
-    receiptNumber: string; // String!
     supplier: NexusGenInputs['SupplierCreateOneWithoutOrderItemInput']; // SupplierCreateOneWithoutOrderItemInput!
   }
   OrderItemCreateWithoutSupplierInput: { // input type
     item: NexusGenInputs['ItemCreateOneWithoutOrderItemsInput']; // ItemCreateOneWithoutOrderItemsInput!
     Order: NexusGenInputs['OrderCreateOneWithoutItemsInput']; // OrderCreateOneWithoutItemsInput!
+    price: number; // Float!
     quantity: number; // Float!
-    receiptNumber: string; // String!
   }
   OrderItemListRelationFilter: { // input type
     every?: NexusGenInputs['OrderItemWhereInput'] | null; // OrderItemWhereInput
@@ -339,8 +342,8 @@ export interface NexusGenInputs {
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     itemId?: NexusGenEnums['SortOrder'] | null; // SortOrder
     orderId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    price?: NexusGenEnums['SortOrder'] | null; // SortOrder
     quantity?: NexusGenEnums['SortOrder'] | null; // SortOrder
-    receiptNumber?: NexusGenEnums['SortOrder'] | null; // SortOrder
     supplierId?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   OrderItemScalarWhereInput: { // input type
@@ -350,20 +353,20 @@ export interface NexusGenInputs {
     NOT?: Array<NexusGenInputs['OrderItemScalarWhereInput'] | null> | null; // [OrderItemScalarWhereInput]
     OR?: Array<NexusGenInputs['OrderItemScalarWhereInput'] | null> | null; // [OrderItemScalarWhereInput]
     orderId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    price?: NexusGenInputs['FloatFilter'] | null; // FloatFilter
     quantity?: NexusGenInputs['FloatFilter'] | null; // FloatFilter
-    receiptNumber?: NexusGenInputs['StringFilter'] | null; // StringFilter
     supplierId?: NexusGenInputs['IntFilter'] | null; // IntFilter
   }
   OrderItemUpdateInput: { // input type
     item?: NexusGenInputs['ItemUpdateOneRequiredWithoutOrderItemsInput'] | null; // ItemUpdateOneRequiredWithoutOrderItemsInput
     Order?: NexusGenInputs['OrderUpdateOneRequiredWithoutItemsInput'] | null; // OrderUpdateOneRequiredWithoutItemsInput
+    price?: NexusGenInputs['FloatFieldUpdateOperationsInput'] | null; // FloatFieldUpdateOperationsInput
     quantity?: NexusGenInputs['FloatFieldUpdateOperationsInput'] | null; // FloatFieldUpdateOperationsInput
-    receiptNumber?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     supplier?: NexusGenInputs['SupplierUpdateOneRequiredWithoutOrderItemInput'] | null; // SupplierUpdateOneRequiredWithoutOrderItemInput
   }
   OrderItemUpdateManyMutationInput: { // input type
+    price?: NexusGenInputs['FloatFieldUpdateOperationsInput'] | null; // FloatFieldUpdateOperationsInput
     quantity?: NexusGenInputs['FloatFieldUpdateOperationsInput'] | null; // FloatFieldUpdateOperationsInput
-    receiptNumber?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   }
   OrderItemUpdateManyWithWhereWithoutItemInput: { // input type
     data: NexusGenInputs['OrderItemUpdateManyMutationInput']; // OrderItemUpdateManyMutationInput!
@@ -427,21 +430,21 @@ export interface NexusGenInputs {
   }
   OrderItemUpdateWithoutItemInput: { // input type
     Order?: NexusGenInputs['OrderUpdateOneRequiredWithoutItemsInput'] | null; // OrderUpdateOneRequiredWithoutItemsInput
+    price?: NexusGenInputs['FloatFieldUpdateOperationsInput'] | null; // FloatFieldUpdateOperationsInput
     quantity?: NexusGenInputs['FloatFieldUpdateOperationsInput'] | null; // FloatFieldUpdateOperationsInput
-    receiptNumber?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     supplier?: NexusGenInputs['SupplierUpdateOneRequiredWithoutOrderItemInput'] | null; // SupplierUpdateOneRequiredWithoutOrderItemInput
   }
   OrderItemUpdateWithoutOrderInput: { // input type
     item?: NexusGenInputs['ItemUpdateOneRequiredWithoutOrderItemsInput'] | null; // ItemUpdateOneRequiredWithoutOrderItemsInput
+    price?: NexusGenInputs['FloatFieldUpdateOperationsInput'] | null; // FloatFieldUpdateOperationsInput
     quantity?: NexusGenInputs['FloatFieldUpdateOperationsInput'] | null; // FloatFieldUpdateOperationsInput
-    receiptNumber?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     supplier?: NexusGenInputs['SupplierUpdateOneRequiredWithoutOrderItemInput'] | null; // SupplierUpdateOneRequiredWithoutOrderItemInput
   }
   OrderItemUpdateWithoutSupplierInput: { // input type
     item?: NexusGenInputs['ItemUpdateOneRequiredWithoutOrderItemsInput'] | null; // ItemUpdateOneRequiredWithoutOrderItemsInput
     Order?: NexusGenInputs['OrderUpdateOneRequiredWithoutItemsInput'] | null; // OrderUpdateOneRequiredWithoutItemsInput
+    price?: NexusGenInputs['FloatFieldUpdateOperationsInput'] | null; // FloatFieldUpdateOperationsInput
     quantity?: NexusGenInputs['FloatFieldUpdateOperationsInput'] | null; // FloatFieldUpdateOperationsInput
-    receiptNumber?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   }
   OrderItemUpsertWithWhereUniqueWithoutItemInput: { // input type
     create: NexusGenInputs['OrderItemCreateWithoutItemInput']; // OrderItemCreateWithoutItemInput!
@@ -467,8 +470,8 @@ export interface NexusGenInputs {
     OR?: Array<NexusGenInputs['OrderItemWhereInput'] | null> | null; // [OrderItemWhereInput]
     Order?: NexusGenInputs['OrderWhereInput'] | null; // OrderWhereInput
     orderId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    price?: NexusGenInputs['FloatFilter'] | null; // FloatFilter
     quantity?: NexusGenInputs['FloatFilter'] | null; // FloatFilter
-    receiptNumber?: NexusGenInputs['StringFilter'] | null; // StringFilter
     supplier?: NexusGenInputs['SupplierWhereInput'] | null; // SupplierWhereInput
     supplierId?: NexusGenInputs['IntFilter'] | null; // IntFilter
   }
@@ -483,6 +486,7 @@ export interface NexusGenInputs {
   OrderOrderByInput: { // input type
     date?: NexusGenEnums['SortOrder'] | null; // SortOrder
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    receiptNumber?: NexusGenEnums['SortOrder'] | null; // SortOrder
     supplierId?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   OrderRelationFilter: { // input type
@@ -495,15 +499,18 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
     NOT?: Array<NexusGenInputs['OrderScalarWhereInput'] | null> | null; // [OrderScalarWhereInput]
     OR?: Array<NexusGenInputs['OrderScalarWhereInput'] | null> | null; // [OrderScalarWhereInput]
+    receiptNumber?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
     supplierId?: NexusGenInputs['IntFilter'] | null; // IntFilter
   }
   OrderUpdateInput: { // input type
     date?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
     items?: NexusGenInputs['OrderItemUpdateManyWithoutOrderInput'] | null; // OrderItemUpdateManyWithoutOrderInput
+    receiptNumber?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     supplier?: NexusGenInputs['SupplierUpdateOneRequiredWithoutOrderInput'] | null; // SupplierUpdateOneRequiredWithoutOrderInput
   }
   OrderUpdateManyMutationInput: { // input type
     date?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    receiptNumber?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
   }
   OrderUpdateManyWithWhereWithoutSupplierInput: { // input type
     data: NexusGenInputs['OrderUpdateManyMutationInput']; // OrderUpdateManyMutationInput!
@@ -534,11 +541,13 @@ export interface NexusGenInputs {
   }
   OrderUpdateWithoutItemsInput: { // input type
     date?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    receiptNumber?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     supplier?: NexusGenInputs['SupplierUpdateOneRequiredWithoutOrderInput'] | null; // SupplierUpdateOneRequiredWithoutOrderInput
   }
   OrderUpdateWithoutSupplierInput: { // input type
     date?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
     items?: NexusGenInputs['OrderItemUpdateManyWithoutOrderInput'] | null; // OrderItemUpdateManyWithoutOrderInput
+    receiptNumber?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
   }
   OrderUpsertWithWhereUniqueWithoutSupplierInput: { // input type
     create: NexusGenInputs['OrderCreateWithoutSupplierInput']; // OrderCreateWithoutSupplierInput!
@@ -556,6 +565,7 @@ export interface NexusGenInputs {
     items?: NexusGenInputs['OrderItemListRelationFilter'] | null; // OrderItemListRelationFilter
     NOT?: Array<NexusGenInputs['OrderWhereInput'] | null> | null; // [OrderWhereInput]
     OR?: Array<NexusGenInputs['OrderWhereInput'] | null> | null; // [OrderWhereInput]
+    receiptNumber?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
     supplier?: NexusGenInputs['SupplierWhereInput'] | null; // SupplierWhereInput
     supplierId?: NexusGenInputs['IntFilter'] | null; // IntFilter
   }
@@ -725,8 +735,8 @@ export interface NexusGenInputs {
 
 export interface NexusGenEnums {
   ItemScalarFieldEnum: "category" | "description" | "id" | "name" | "saleType" | "snHerzelia" | "snWebSite"
-  OrderItemScalarFieldEnum: "id" | "itemId" | "orderId" | "quantity" | "receiptNumber" | "supplierId"
-  OrderScalarFieldEnum: "date" | "id" | "supplierId"
+  OrderItemScalarFieldEnum: "id" | "itemId" | "orderId" | "price" | "quantity" | "supplierId"
+  OrderScalarFieldEnum: "date" | "id" | "receiptNumber" | "supplierId"
   QueryMode: "default" | "insensitive"
   SortOrder: "asc" | "desc"
   SupplierScalarFieldEnum: "id" | "name"
@@ -822,6 +832,7 @@ export interface NexusGenObjects {
   Order: { // root type
     date: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
+    receiptNumber?: string | null; // String
     supplierId: number; // Int!
   }
   OrderAvgAggregateOutputType: { // root type
@@ -832,19 +843,21 @@ export interface NexusGenObjects {
     _all: number; // Int!
     date?: number | null; // Int
     id: number; // Int!
+    receiptNumber?: number | null; // Int
     supplierId: number; // Int!
   }
   OrderItem: { // root type
     id: number; // Int!
     itemId: string; // String!
     orderId: number; // Int!
+    price: number; // Float!
     quantity: number; // Float!
-    receiptNumber: string; // String!
     supplierId: number; // Int!
   }
   OrderItemAvgAggregateOutputType: { // root type
     id: number; // Float!
     orderId: number; // Float!
+    price: number; // Float!
     quantity: number; // Float!
     supplierId: number; // Float!
   }
@@ -853,40 +866,43 @@ export interface NexusGenObjects {
     id: number; // Int!
     itemId?: number | null; // Int
     orderId: number; // Int!
+    price: number; // Int!
     quantity: number; // Int!
-    receiptNumber?: number | null; // Int
     supplierId: number; // Int!
   }
   OrderItemMaxAggregateOutputType: { // root type
     id: number; // Int!
     itemId?: string | null; // String
     orderId: number; // Int!
+    price: number; // Float!
     quantity: number; // Float!
-    receiptNumber?: string | null; // String
     supplierId: number; // Int!
   }
   OrderItemMinAggregateOutputType: { // root type
     id: number; // Int!
     itemId?: string | null; // String
     orderId: number; // Int!
+    price: number; // Float!
     quantity: number; // Float!
-    receiptNumber?: string | null; // String
     supplierId: number; // Int!
   }
   OrderItemSumAggregateOutputType: { // root type
     id: number; // Int!
     orderId: number; // Int!
+    price: number; // Float!
     quantity: number; // Float!
     supplierId: number; // Int!
   }
   OrderMaxAggregateOutputType: { // root type
     date?: NexusGenScalars['DateTime'] | null; // DateTime
     id: number; // Int!
+    receiptNumber?: string | null; // String
     supplierId: number; // Int!
   }
   OrderMinAggregateOutputType: { // root type
     date?: NexusGenScalars['DateTime'] | null; // DateTime
     id: number; // Int!
+    receiptNumber?: string | null; // String
     supplierId: number; // Int!
   }
   OrderSumAggregateOutputType: { // root type
@@ -1040,7 +1056,6 @@ export interface NexusGenFieldTypes {
     snWebSite: string | null; // String
   }
   Mutation: { // field return type
-    createManyItem: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     createOneItem: NexusGenRootTypes['Item']; // Item!
     createOneOrder: NexusGenRootTypes['Order']; // Order!
     createOneOrderItem: NexusGenRootTypes['OrderItem']; // OrderItem!
@@ -1076,6 +1091,7 @@ export interface NexusGenFieldTypes {
     date: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
     items: NexusGenRootTypes['OrderItem'][]; // [OrderItem!]!
+    receiptNumber: string | null; // String
     supplier: NexusGenRootTypes['Supplier']; // Supplier!
     supplierId: number; // Int!
   }
@@ -1087,6 +1103,7 @@ export interface NexusGenFieldTypes {
     _all: number; // Int!
     date: number | null; // Int
     id: number; // Int!
+    receiptNumber: number | null; // Int
     supplierId: number; // Int!
   }
   OrderItem: { // field return type
@@ -1095,14 +1112,15 @@ export interface NexusGenFieldTypes {
     itemId: string; // String!
     Order: NexusGenRootTypes['Order']; // Order!
     orderId: number; // Int!
+    price: number; // Float!
     quantity: number; // Float!
-    receiptNumber: string; // String!
     supplier: NexusGenRootTypes['Supplier']; // Supplier!
     supplierId: number; // Int!
   }
   OrderItemAvgAggregateOutputType: { // field return type
     id: number; // Float!
     orderId: number; // Float!
+    price: number; // Float!
     quantity: number; // Float!
     supplierId: number; // Float!
   }
@@ -1111,40 +1129,43 @@ export interface NexusGenFieldTypes {
     id: number; // Int!
     itemId: number | null; // Int
     orderId: number; // Int!
+    price: number; // Int!
     quantity: number; // Int!
-    receiptNumber: number | null; // Int
     supplierId: number; // Int!
   }
   OrderItemMaxAggregateOutputType: { // field return type
     id: number; // Int!
     itemId: string | null; // String
     orderId: number; // Int!
+    price: number; // Float!
     quantity: number; // Float!
-    receiptNumber: string | null; // String
     supplierId: number; // Int!
   }
   OrderItemMinAggregateOutputType: { // field return type
     id: number; // Int!
     itemId: string | null; // String
     orderId: number; // Int!
+    price: number; // Float!
     quantity: number; // Float!
-    receiptNumber: string | null; // String
     supplierId: number; // Int!
   }
   OrderItemSumAggregateOutputType: { // field return type
     id: number; // Int!
     orderId: number; // Int!
+    price: number; // Float!
     quantity: number; // Float!
     supplierId: number; // Int!
   }
   OrderMaxAggregateOutputType: { // field return type
     date: NexusGenScalars['DateTime'] | null; // DateTime
     id: number; // Int!
+    receiptNumber: string | null; // String
     supplierId: number; // Int!
   }
   OrderMinAggregateOutputType: { // field return type
     date: NexusGenScalars['DateTime'] | null; // DateTime
     id: number; // Int!
+    receiptNumber: string | null; // String
     supplierId: number; // Int!
   }
   OrderSumAggregateOutputType: { // field return type
@@ -1316,7 +1337,6 @@ export interface NexusGenFieldTypeNames {
     snWebSite: 'String'
   }
   Mutation: { // field return type name
-    createManyItem: 'BatchPayload'
     createOneItem: 'Item'
     createOneOrder: 'Order'
     createOneOrderItem: 'OrderItem'
@@ -1352,6 +1372,7 @@ export interface NexusGenFieldTypeNames {
     date: 'DateTime'
     id: 'Int'
     items: 'OrderItem'
+    receiptNumber: 'String'
     supplier: 'Supplier'
     supplierId: 'Int'
   }
@@ -1363,6 +1384,7 @@ export interface NexusGenFieldTypeNames {
     _all: 'Int'
     date: 'Int'
     id: 'Int'
+    receiptNumber: 'Int'
     supplierId: 'Int'
   }
   OrderItem: { // field return type name
@@ -1371,14 +1393,15 @@ export interface NexusGenFieldTypeNames {
     itemId: 'String'
     Order: 'Order'
     orderId: 'Int'
+    price: 'Float'
     quantity: 'Float'
-    receiptNumber: 'String'
     supplier: 'Supplier'
     supplierId: 'Int'
   }
   OrderItemAvgAggregateOutputType: { // field return type name
     id: 'Float'
     orderId: 'Float'
+    price: 'Float'
     quantity: 'Float'
     supplierId: 'Float'
   }
@@ -1387,40 +1410,43 @@ export interface NexusGenFieldTypeNames {
     id: 'Int'
     itemId: 'Int'
     orderId: 'Int'
+    price: 'Int'
     quantity: 'Int'
-    receiptNumber: 'Int'
     supplierId: 'Int'
   }
   OrderItemMaxAggregateOutputType: { // field return type name
     id: 'Int'
     itemId: 'String'
     orderId: 'Int'
+    price: 'Float'
     quantity: 'Float'
-    receiptNumber: 'String'
     supplierId: 'Int'
   }
   OrderItemMinAggregateOutputType: { // field return type name
     id: 'Int'
     itemId: 'String'
     orderId: 'Int'
+    price: 'Float'
     quantity: 'Float'
-    receiptNumber: 'String'
     supplierId: 'Int'
   }
   OrderItemSumAggregateOutputType: { // field return type name
     id: 'Int'
     orderId: 'Int'
+    price: 'Float'
     quantity: 'Float'
     supplierId: 'Int'
   }
   OrderMaxAggregateOutputType: { // field return type name
     date: 'DateTime'
     id: 'Int'
+    receiptNumber: 'String'
     supplierId: 'Int'
   }
   OrderMinAggregateOutputType: { // field return type name
     date: 'DateTime'
     id: 'Int'
+    receiptNumber: 'String'
     supplierId: 'Int'
   }
   OrderSumAggregateOutputType: { // field return type name
@@ -1528,9 +1554,6 @@ export interface NexusGenArgTypes {
     }
   }
   Mutation: {
-    createManyItem: { // args
-      data?: NexusGenInputs['ItemCreateInput'][] | null; // [ItemCreateInput!]
-    }
     createOneItem: { // args
       data: NexusGenInputs['ItemCreateInput']; // ItemCreateInput!
     }

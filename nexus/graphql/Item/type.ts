@@ -6,7 +6,6 @@ export const Item = objectType({
     input: false,
   },
   name: 'Item',
-
   definition(t) {
     t.string('id')
     t.string('name')

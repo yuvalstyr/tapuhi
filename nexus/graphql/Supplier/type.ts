@@ -6,7 +6,6 @@ export const Supplier = objectType({
     input: false,
   },
   name: 'Supplier',
-
   definition(t) {
     t.int('id')
     t.string('name')

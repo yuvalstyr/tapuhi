@@ -6,7 +6,6 @@ export const User = objectType({
     input: false,
   },
   name: 'User',
-
   definition(t) {
     t.int('id')
     t.nullable.string('name')

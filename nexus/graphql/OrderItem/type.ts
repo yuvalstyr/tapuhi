@@ -6,7 +6,6 @@ export const OrderItem = objectType({
     input: false,
   },
   name: 'OrderItem',
-
   definition(t) {
     t.int('id')
     t.field('item', {
@@ -16,7 +15,7 @@ export const OrderItem = objectType({
       },
     })
     t.float('quantity')
-    t.string('receiptNumber')
+    t.float('price')
     t.field('Order', {
       type: 'Order',
       resolve(root: any) {

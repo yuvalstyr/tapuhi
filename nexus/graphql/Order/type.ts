@@ -6,7 +6,6 @@ export const Order = objectType({
     input: false,
   },
   name: 'Order',
-
   definition(t) {
     t.int('id')
     t.field('date', { type: 'DateTime' })
@@ -17,6 +16,7 @@ export const Order = objectType({
       },
     })
     t.int('supplierId')
+    t.nullable.string('receiptNumber')
     t.list.field('items', {
       type: 'OrderItem',
       args: {

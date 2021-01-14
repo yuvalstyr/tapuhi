@@ -42,35 +42,37 @@ export const ItemRow: React.FC<IItemProps> = ({
       <Select
         options={items}
         name={`items[${index}].name`}
-        control={control}
-        errors={errors}
-        getValues={getValues}
         defaultValue={field?.name?.value}
         attachToBodyTrue={true}
       />
-
-      <Input
-        ref={register({
-          required: { message: 'שדה חובה', value: true },
-          pattern: {
-            message: 'חייב להיות מספר',
-            value: /^[+-]?((\d+(\.\d{1,2})?))$/,
-          },
-        })}
-        name={`items[${index}].quantity`}
-        defaultValue={field.quantity}
-      />
-      <Input
-        ref={register({
-          required: { message: 'שדה חובה', value: true },
-          pattern: {
-            message: 'חייב להיות מספר',
-            value: /^[+-]?((\d+(\.\d{1,2})?))$/,
-          },
-        })}
-        name={`items[${index}].price`}
-        defaultValue={field.price}
-      />
+      <Grid columns={1} sx={{ alignItems: 'center' }}>
+        <Input
+          ref={register({
+            required: { message: 'שדה חובה', value: true },
+            pattern: {
+              message: 'חייב להיות מספר',
+              value: /^[+-]?((\d+(\.\d{1,2})?))$/,
+            },
+          })}
+          name={`items[${index}].quantity`}
+          defaultValue={field.quantity}
+        />
+        <FormError errors={errors} name={`items[${index}].quantity`} />
+      </Grid>
+      <Grid columns={1} sx={{ alignItems: 'center' }}>
+        <Input
+          ref={register({
+            required: { message: 'שדה חובה', value: true },
+            pattern: {
+              message: 'חייב להיות מספר',
+              value: /^[+-]?((\d+(\.\d{1,2})?))$/,
+            },
+          })}
+          name={`items[${index}].price`}
+          defaultValue={field.price}
+        />
+        <FormError errors={errors} name={`items[${index}].price`} />
+      </Grid>
       <IconButton
         sx={{ color: 'red', alignSelf: 'center', justifySelf: 'center' }}
         onClick={() => remove(index)}
