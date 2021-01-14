@@ -1,10 +1,8 @@
 import { Item, Supplier } from '@prisma/client'
 import { useMachine } from '@xstate/react'
-import { request } from 'graphql-request'
 import React from 'react'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
-import { Box, Button, Heading } from 'theme-ui'
-import { CREATE_ORDER } from '../lib/gql'
+import { Box, Button, Heading, Spinner } from 'theme-ui'
 import { EventsEnum, orderFormMachine } from '../machine/OrderFormMachine'
 import { FormProps } from '../pages/index'
 import { Ioptions } from '../type'
@@ -56,7 +54,8 @@ const ReceptionForm: React.FC<FormProps> = ({
   const { handleSubmit, control, register } = methods
   const { fields, append, remove } = useFieldArray({ control, name: 'items' })
   const [current, send] = useMachine(orderFormMachine)
-  if (current.matches('fetching')) return <Heading>Loading..</Heading>
+  if (current.matches('fetching'))
+    return <Spinner size={96} strokeWidth={6} sx={{ alignSelf: 'center' }} />
   if (current.matches('success')) return <Heading>Form Submitetd!!!</Heading>
   if (current.matches('error')) return <Heading>Error 😥</Heading>
   const onSubmit = (data: FormData) => {

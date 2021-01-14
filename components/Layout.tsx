@@ -28,6 +28,7 @@ const Layout: React.FC = ({ children }) => {
         display: 'flex',
         flexDirection: 'column',
         height: height,
+        direction: 'rtl',
       }}
     >
       <header
