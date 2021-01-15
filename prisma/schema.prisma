@@ -43,6 +43,7 @@ model Order {
   supplier      Supplier    @relation(fields: [supplierId], references: [id])
   supplierId    Int
   receiptNumber String?
+  /// @onDelete(CASCADE)
   items         OrderItem[]
 }
 

@@ -1,21 +1,14 @@
-import prisma from '../lib/prisma'
 import { NextPage } from 'next'
 import React from 'react'
-import dynamic from 'next/dynamic'
-import { Item, Supplier } from '@prisma/client'
-import ReceptionForm from '../components/ReceptionForm'
-// const NoSSRComponent = dynamic(() => import('../components/ReceptionForm'), {
-//   ssr: false,
-// })
-export interface FormProps {
-  items: Item[]
-  suppliers: Supplier[]
-}
+import { Link, NavLink } from 'theme-ui'
+import prisma from '../lib/prisma'
 
-const index: NextPage<FormProps> = ({ items, suppliers }) => {
+const index: NextPage = () => {
   return (
     <React.Fragment>
-      <ReceptionForm items={items} suppliers={suppliers} />
+      <NavLink href="/order" p={2}>
+        הזמנה חדשה
+      </NavLink>
     </React.Fragment>
   )
 }

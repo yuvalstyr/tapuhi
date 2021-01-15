@@ -1,13 +1,18 @@
 import { Item, Supplier } from '@prisma/client'
-import { useMachine } from '@xstate/react'
 import React from 'react'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
-import { Box, Button, Heading, Spinner } from 'theme-ui'
-import { EventsEnum, orderFormMachine } from '../machine/OrderFormMachine'
-import { FormProps } from '../pages/index'
-import { Ioptions } from '../type'
+import { Box, Button } from 'theme-ui'
+import { EventsEnum, SubmitEvent } from '../machine/orderFormMachine.types'
+import { Ioptions, OrderFormData } from '../type'
 import ItemList from './ItemList'
 import { OrderDetails } from './OrderDetails'
+
+export interface FormProps {
+  items: Item[]
+  suppliers: Supplier[]
+  // eslint-disable-next-line no-unused-vars
+  send: (event: SubmitEvent) => void
+}
 
 const defaultValues = {
   supplier: { value: '', label: '' },
@@ -15,18 +20,11 @@ const defaultValues = {
   orderNumber: '',
 }
 
-type FormData = {
-  date: Date
-  orderNumber?: string
-  supplier: Ioptions
-  items: { name: Ioptions; price: number; quantity: number }[]
-}
-
 const getIdfromArray = (arr: (Item | Supplier)[], name: string) => {
   return arr.filter((i) => i.name === name)[0].id
 }
 
-const createItemForMutation = (
+const asjustItemsForMutation = (
   items: { name: Ioptions; price: number; quantity: number }[],
   supplierId: number,
   itemsArray: Item[],
@@ -45,6 +43,7 @@ const createItemForMutation = (
 const ReceptionForm: React.FC<FormProps> = ({
   items: itemsArray,
   suppliers: supplierArray,
+  send,
 }) => {
   const methods = useForm({
     mode: 'onChange',
@@ -53,20 +52,16 @@ const ReceptionForm: React.FC<FormProps> = ({
   })
   const { handleSubmit, control, register } = methods
   const { fields, append, remove } = useFieldArray({ control, name: 'items' })
-  const [current, send] = useMachine(orderFormMachine)
-  if (current.matches('fetching'))
-    return <Spinner size={96} strokeWidth={6} sx={{ alignSelf: 'center' }} />
-  if (current.matches('success')) return <Heading>Form Submitetd!!!</Heading>
-  if (current.matches('error')) return <Heading>Error 😥</Heading>
-  const onSubmit = (data: FormData) => {
+
+  const onSubmit = (data: OrderFormData) => {
     const supplierId = +getIdfromArray(supplierArray, data.supplier.value)
-    const createItems = createItemForMutation(
+    const createItems = asjustItemsForMutation(
       data.items,
       supplierId,
       itemsArray,
     )
     send({
-      type: EventsEnum.FETCH,
+      type: EventsEnum.SUBMIT,
       data: {
         date: data.date,
         supplierId: +supplierId,

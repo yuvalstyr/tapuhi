@@ -1,26 +1,40 @@
-import { ICreateOrder } from './OrderFormMachine'
+/* eslint-disable no-unused-vars */
+import { Prisma } from '@prisma/client'
+import { State, StateSchema, Typestate } from 'xstate'
 
+export enum EventsEnum {
+  NEW = 'NEW',
+  SUBMIT = 'SUBMIT',
+}
 export enum OrderFormStates {
-  fatching = 'fatching',
+  submiting = 'submiting',
   idle = 'idle',
   success = 'success',
   error = 'error',
 }
 
-enum orderFormEvents {
-  NEW = 'NEW',
-  FETCH = 'FETCH',
+export type NewEvent = { type: EventsEnum.NEW }
+export type SubmitEvent = { type: EventsEnum.SUBMIT; data: ICreateOrder }
+
+export type OrderFormEvent = NewEvent | SubmitEvent
+
+export type Current = State<
+  OrderFormContext,
+  OrderFormEvent,
+  StateSchema<OrderFormContext>,
+  Typestate<OrderFormContext>
+>
+export interface OrderFormContext {
+  data: ICreateOrder
 }
 
-export interface OrderFormSchema {
-  states: {
-    [OrderFormStates.idle]: { [key: string]: unknown }
-    [OrderFormStates.fatching]: { [key: string]: unknown }
-    [OrderFormStates.success]: { [key: string]: unknown }
-    [OrderFormStates.error]: { [key: string]: unknown }
-  }
+export interface ICreateOrder {
+  date: Date
+  supplierId: number
+  items: Prisma.OrderItemCreateWithoutOrderInput[]
 }
 
-export type OrderFormEvent =
-  | { type: orderFormEvents.NEW; workoutId: number }
-  | { type: orderFormEvents.FETCH; data: ICreateOrder }
+export type OrderFormSchema = {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  states: { [key in OrderFormStates]: {} }
+}

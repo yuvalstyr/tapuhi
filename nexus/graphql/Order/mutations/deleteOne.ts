@@ -6,7 +6,12 @@ export const OrderDeleteOneMutation = mutationField('deleteOneOrder', {
     where: nonNull('OrderWhereUniqueInput'),
   },
   resolve: async (_parent, { where }, { prisma, select }) => {
-    await prisma.onDelete({ model: 'Order', where })
+    const { id } = where
+    if (!id) throw Error('where must include id')
+    await prisma.orderItem.deleteMany({
+      where: { Order: { id: { equals: id } } },
+    })
+
     return prisma.order.delete({
       where,
       ...select,
