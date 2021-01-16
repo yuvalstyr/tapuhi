@@ -87,7 +87,9 @@ const ReceptionForm: React.FC<FormProps> = ({
         onSubmit={handleSubmit(onSubmit)}
       >
         <OrderDetails suppliers={suppliers} />
-        <ItemList {...{ fields, register, remove, items, append }} />
+        <ItemList
+          {...{ fields, register, remove, items, append, itemsArray }}
+        />
         <Button mb="1">צור הזמנה</Button>
       </Box>
     </FormProvider>

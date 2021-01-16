@@ -18,7 +18,12 @@ export const OrderDetails: React.FC<IProps> = ({ suppliers }) => {
     <Card sx={{ flexShrink: 0 }}>
       <Grid sx={{ gridGap: [1, 4] }}>
         <Heading>פרטי הזמנה</Heading>
-        <Select options={suppliers} name="supplier" label="ספק" />
+        <Select
+          options={suppliers}
+          name="supplier"
+          label="ספק"
+          placeholder="ספק"
+        />
         <Grid
           columns={2}
           sx={{ gridTemplateColumns: '1fr 3fr', alignItems: 'center' }}

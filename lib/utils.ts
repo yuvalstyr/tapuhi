@@ -1,4 +1,13 @@
+import { Item, saleType } from '@prisma/client'
 import { isBefore, isSameDay, parse } from 'date-fns'
+import { Ioptions } from '../type'
+
+export const saleTypeTranslate: Partial<Record<saleType, string>> = {
+  KG: 'ק"ג',
+  PACK: 'חבילה',
+  UNIT: 'יחידה',
+  WIEGHT_PACK: 'שקול',
+}
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const getDatesBetweenDates = (
@@ -75,4 +84,9 @@ export function convertPromiseAll<T>(result: PromiseSettledResult<T>[]) {
       }
     })
   return { errors, successCount }
+}
+
+export function getSaleType(itemsArray: Item[], item: Ioptions) {
+  const saleType = itemsArray.filter((i) => i.name === item.value)[0]?.saleType
+  return saleTypeTranslate[saleType]
 }

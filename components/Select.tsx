@@ -5,6 +5,15 @@ import { Grid, Label } from 'theme-ui'
 import { Ioptions } from '../type'
 import FormError from './FormError'
 
+interface ISelectProps {
+  options: Ioptions[]
+  label?: string
+  name: string
+  defaultValue?: number | string
+  attachToBodyTrue?: boolean
+  placeholder: string
+}
+
 export const reactSelectStyles = {
   container: (provided: CSSProperties) => ({
     ...provided,
@@ -21,20 +30,13 @@ export const reactSelectStyles = {
   },
 }
 
-interface ISelectProps {
-  options: Ioptions[]
-  label?: string
-  name: string
-  defaultValue?: number | string
-  attachToBodyTrue?: boolean
-}
-
 export const Select: React.FC<ISelectProps> = ({
   options,
   label,
   name,
   defaultValue,
   attachToBodyTrue,
+  placeholder,
 }) => {
   const { errors, getValues, control } = useFormContext()
   const gridTemplateColumns = label ? '1fr 3fr' : '1fr'
@@ -43,12 +45,12 @@ export const Select: React.FC<ISelectProps> = ({
     : { value: '', label: '' }
 
   return (
-    <Grid columns={2} sx={{ gridTemplateColumns, alignItems: 'center' }}>
+    <Grid columns={2} sx={{ gridTemplateColumns, alignContent: 'baseline' }}>
       {label && <Label>{label}</Label>}
 
       <Controller
         inputId="react-select"
-        as={ReactSelect}
+        as={<ReactSelect />}
         options={options}
         name={name}
         menuPlacement={'auto'}
@@ -57,6 +59,7 @@ export const Select: React.FC<ISelectProps> = ({
         menuPortalTarget={attachToBodyTrue ? document.body : ''}
         isClearable
         control={control}
+        placeholder={placeholder}
         rules={{
           validate: () => (getValues(name)?.value ? true : false),
         }}

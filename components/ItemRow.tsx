@@ -1,12 +1,13 @@
-import { saleType } from '@prisma/client'
+import { Item, saleType } from '@prisma/client'
 import React from 'react'
 import { ArrayField, useFormContext } from 'react-hook-form'
 import { MdDelete } from 'react-icons/md'
-import { Grid, IconButton, Input } from 'theme-ui'
+import { Grid, IconButton, Input, Text } from 'theme-ui'
 import { Ioptions, Remove } from '../type'
 import FormError from './FormError'
 import Icon from './Icon'
 import { Select } from './Select'
+import { getSaleType } from '../lib/utils'
 
 interface IItem {
   name: { value: string; label: string }
@@ -22,6 +23,7 @@ interface IItemProps {
   index: number
   remove: Remove
   items: Ioptions[]
+  itemsArray: Item[]
 }
 
 export const ItemRow: React.FC<IItemProps> = ({
@@ -29,14 +31,16 @@ export const ItemRow: React.FC<IItemProps> = ({
   index,
   remove,
   items,
+  itemsArray,
 }) => {
-  const { control, register, errors, getValues } = useFormContext()
+  const { register, errors, watch } = useFormContext()
+  const watchName = watch(`items[${index}].name`)
+  const saleType = watchName?.value ? getSaleType(itemsArray, watchName) : ''
   return (
     <Grid
-      columns={4}
+      columns={'3fr 1fr 1fr 1fr 1fr'}
       sx={{
         justifyContent: 'space-between',
-        gridTemplateColumns: '3fr 1fr 1fr 1fr',
       }}
     >
       <Select
@@ -44,8 +48,9 @@ export const ItemRow: React.FC<IItemProps> = ({
         name={`items[${index}].name`}
         defaultValue={field?.name?.value}
         attachToBodyTrue={true}
+        placeholder={'מוצר'}
       />
-      <Grid columns={1} sx={{ alignItems: 'center' }}>
+      <Grid columns={1} sx={{ alignContent: 'baseline' }}>
         <Input
           ref={register({
             required: { message: 'שדה חובה', value: true },
@@ -54,12 +59,24 @@ export const ItemRow: React.FC<IItemProps> = ({
               value: /^[+-]?((\d+(\.\d{1,2})?))$/,
             },
           })}
+          placeholder={'כמות'}
           name={`items[${index}].quantity`}
           defaultValue={field.quantity}
         />
         <FormError errors={errors} name={`items[${index}].quantity`} />
       </Grid>
-      <Grid columns={1} sx={{ alignItems: 'center' }}>
+      <Text
+        color="primary"
+        sx={{
+          alignContent: 'baseline',
+          justifySelf: 'center',
+          fontWeight: 'bold',
+          fontSize: 3,
+        }}
+      >
+        {saleType}
+      </Text>
+      <Grid columns={1} sx={{ alignContent: 'baseline' }}>
         <Input
           ref={register({
             required: { message: 'שדה חובה', value: true },
@@ -68,6 +85,7 @@ export const ItemRow: React.FC<IItemProps> = ({
               value: /^[+-]?((\d+(\.\d{1,2})?))$/,
             },
           })}
+          placeholder={'מחיר'}
           name={`items[${index}].price`}
           defaultValue={field.price}
         />

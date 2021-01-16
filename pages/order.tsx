@@ -2,7 +2,7 @@ import { useMachine } from '@xstate/react'
 import { EventsEnum } from '../machine/orderFormMachine.types'
 import { NextPage } from 'next'
 import React from 'react'
-import { Button, Heading, Spinner } from 'theme-ui'
+import { Box, Button, Heading, Spinner } from 'theme-ui'
 import ReceptionForm, { FormProps } from '../components/ReceptionForm'
 import prisma from '../lib/prisma'
 import { orderFormMachine } from '../machine/OrderFormMachine'
@@ -44,12 +44,12 @@ const Order: NextPage<FormProps> = ({ items, suppliers }) => {
     )
   if (current.matches('error'))
     return (
-      <React.Fragment>
+      <Box>
         <Heading>Error 😥</Heading>
         <Button onClick={() => send(EventsEnum.NEW)}>
           משהו השתבש, ניסיון נוסף?
         </Button>
-      </React.Fragment>
+      </Box>
     )
   return <Heading> Should Not Happend!!!!💩💩💩</Heading>
 }

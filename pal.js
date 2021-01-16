@@ -4,7 +4,4 @@ module.exports = {
     onDelete: true,
     output: 'nexus/graphql',
   },
-  frontend: {
-    admin: { outPut: 'pages/admin' },
-  },
 }
