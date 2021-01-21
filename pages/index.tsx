@@ -1,12 +1,12 @@
 import { NextPage } from 'next'
 import React from 'react'
-import { Link, NavLink } from 'theme-ui'
+import { NavLink } from 'theme-ui'
 import prisma from '../lib/prisma'
 
 const index: NextPage = () => {
   return (
     <React.Fragment>
-      <NavLink href="/order" p={2}>
+      <NavLink href="/admin" p={2}>
         הזמנה חדשה
       </NavLink>
     </React.Fragment>

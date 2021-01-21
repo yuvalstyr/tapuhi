@@ -13,8 +13,34 @@ export enum OrderFormStates {
   error = 'error',
 }
 
+export enum MutationTypesEnum {
+  createOrder = 'createOrder',
+  updateItem = 'updateItem',
+  createItem = 'createItem',
+}
+
+export type createOrder = {
+  type: MutationTypesEnum.createOrder
+  data: ICreateOrder
+}
+export type updateItem = {
+  type: MutationTypesEnum.updateItem
+  args: Prisma.ItemUpdateArgs
+}
+
+export type createItem = {
+  type: MutationTypesEnum.createItem
+  data: Prisma.ItemCreateInput
+}
+
+export type MutationsType = createOrder | updateItem | createItem
+
 export type NewEvent = { type: EventsEnum.NEW }
-export type SubmitEvent = { type: EventsEnum.SUBMIT; data: ICreateOrder }
+
+export type SubmitEvent = {
+  type: EventsEnum.SUBMIT
+  mutation: MutationsType
+}
 
 export type OrderFormEvent = NewEvent | SubmitEvent
 
@@ -25,7 +51,7 @@ export type Current = State<
   Typestate<OrderFormContext>
 >
 export interface OrderFormContext {
-  data: ICreateOrder
+  mutation: MutationsType
 }
 
 export interface ICreateOrder {

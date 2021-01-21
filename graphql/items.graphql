@@ -5,3 +5,15 @@ query items {
     description
   }
 }
+
+mutation createItem($variables: ItemCreateInput!) {
+  createOneItem(data: $variables) {
+    id
+  }
+}
+
+mutation updateItem($data: ItemUpdateInput!, $id: String!) {
+  updateOneItem(where: { id: $id }, data: $data) {
+    id
+  }
+}

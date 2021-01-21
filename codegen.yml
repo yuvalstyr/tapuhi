@@ -7,7 +7,6 @@ generates:
       - 'typescript'
       - 'typescript-operations'
       - typescript-graphql-request
-      - plugin-typescript-swr
     config:
       withHooks: true
       withComponent: false

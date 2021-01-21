@@ -2,11 +2,20 @@ import { Item, saleType } from '@prisma/client'
 import { isBefore, isSameDay, parse } from 'date-fns'
 import { Ioptions } from '../type'
 
-export const saleTypeTranslate: Partial<Record<saleType, string>> = {
+export const saleTypeTranslate: Record<saleType, string> = {
   KG: 'ק"ג',
   PACK: 'חבילה',
   UNIT: 'יחידה',
   WIEGHT_PACK: 'שקול',
+}
+
+export function translateSaleTypeHebToEng(saleType: string) {
+  const translate = Object.entries(saleTypeTranslate)
+    // eslint-disable-next-line no-unused-vars
+    .filter(([_, value]) => value === saleType)
+    .map(([key]) => key)
+  if (translate.length === 1) return translate[0]
+  return '0'
 }
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */

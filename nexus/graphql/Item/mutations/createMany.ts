@@ -1,3 +1,4 @@
+import { Item } from '@prisma/client'
 import { list, mutationField, nonNull } from 'nexus'
 import { convertPromiseAll } from '../../../../lib/utils'
 
@@ -9,7 +10,7 @@ export const ItemCreateManyMutation = mutationField('createManyItem', {
   async resolve(_parent, { data }, { prisma }) {
     if (!data) return { count: 0 }
 
-    const promises = data.map((i) => {
+    const promises: Promise<any>[] = data.map((i: Item) => {
       const { category, name, saleType, description } = i
       return prisma.item.create({
         data: {
@@ -20,8 +21,9 @@ export const ItemCreateManyMutation = mutationField('createManyItem', {
         },
       })
     })
-    const results = await Promise.allSettled(promises)
-    const createMany = convertPromiseAll(results)
+
+    const result = await Promise.allSettled(promises)
+    const createMany = convertPromiseAll(result)
 
     return { count: createMany.successCount }
   },

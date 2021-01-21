@@ -61,7 +61,7 @@ export const OrderDetails: React.FC<IProps> = ({ suppliers }) => {
         >
           <Label>מספר תעודה</Label>
           <Input
-            ref={register({ required: { value: true, message: 'שדה חובה' } })}
+            ref={register({ required: { value: false, message: 'שדה חובה' } })}
             name="orderNumber"
             placeholder="מספר תעודה"
           />

@@ -2,7 +2,11 @@ import { Item, Supplier } from '@prisma/client'
 import React from 'react'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
 import { Box, Button } from 'theme-ui'
-import { EventsEnum, SubmitEvent } from '../machine/orderFormMachine.types'
+import {
+  EventsEnum,
+  MutationTypesEnum,
+  SubmitEvent,
+} from '../machine/FormMachine.types'
 import { Ioptions, OrderFormData } from '../type'
 import ItemList from './ItemList'
 import { OrderDetails } from './OrderDetails'
@@ -60,12 +64,12 @@ const ReceptionForm: React.FC<FormProps> = ({
       supplierId,
       itemsArray,
     )
+
     send({
       type: EventsEnum.SUBMIT,
-      data: {
-        date: data.date,
-        supplierId: +supplierId,
-        items: createItems,
+      mutation: {
+        type: MutationTypesEnum.createOrder,
+        data: { date: data.date, supplierId: +supplierId, items: createItems },
       },
     })
   }
