@@ -32,3 +32,22 @@ export const UPDATE_ITEM = gql`
     }
   }
 `
+
+export const CREATE_SUPPLIER = gql`
+  mutation createItem($variables: SupplierCreateInput!) {
+    createOneSupplier(data: $variables) {
+      id
+    }
+  }
+`
+
+export const UPDATE_SUPPLIER = gql`
+  mutation updateSupplier(
+    $where: SupplierWhereUniqueInput!
+    $data: SupplierUpdateInput!
+  ) {
+    updateOneSupplier(where: $where, data: $data) {
+      id
+    }
+  }
+`

@@ -14,26 +14,40 @@ export enum OrderFormStates {
 }
 
 export enum MutationTypesEnum {
-  createOrder = 'createOrder',
-  updateItem = 'updateItem',
   createItem = 'createItem',
-}
-
-export type createOrder = {
-  type: MutationTypesEnum.createOrder
-  data: ICreateOrder
-}
-export type updateItem = {
-  type: MutationTypesEnum.updateItem
-  args: Prisma.ItemUpdateArgs
+  createOrder = 'createOrder',
+  createSupplier = 'createSupplier',
+  updateItem = 'updateItem',
+  updateSupplier = 'updateSupplier',
 }
 
 export type createItem = {
   type: MutationTypesEnum.createItem
   data: Prisma.ItemCreateInput
 }
+export type createOrder = {
+  type: MutationTypesEnum.createOrder
+  data: ICreateOrder
+}
+export type createSupplier = {
+  type: MutationTypesEnum.createSupplier
+  data: Prisma.SupplierCreateInput
+}
+export type updateItem = {
+  type: MutationTypesEnum.updateItem
+  args: Prisma.ItemUpdateArgs
+}
+export type updateSupplier = {
+  type: MutationTypesEnum.updateSupplier
+  args: Prisma.SupplierUpdateArgs
+}
 
-export type MutationsType = createOrder | updateItem | createItem
+export type MutationsType =
+  | createOrder
+  | updateItem
+  | createItem
+  | updateSupplier
+  | createSupplier
 
 export type NewEvent = { type: EventsEnum.NEW }
 

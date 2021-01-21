@@ -1056,6 +1056,7 @@ export interface NexusGenFieldTypes {
     snWebSite: string | null; // String
   }
   Mutation: { // field return type
+    createManySupplier: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     createOneItem: NexusGenRootTypes['Item']; // Item!
     createOneOrder: NexusGenRootTypes['Order']; // Order!
     createOneOrderItem: NexusGenRootTypes['OrderItem']; // OrderItem!
@@ -1337,6 +1338,7 @@ export interface NexusGenFieldTypeNames {
     snWebSite: 'String'
   }
   Mutation: { // field return type name
+    createManySupplier: 'BatchPayload'
     createOneItem: 'Item'
     createOneOrder: 'Order'
     createOneOrderItem: 'OrderItem'
@@ -1554,6 +1556,9 @@ export interface NexusGenArgTypes {
     }
   }
   Mutation: {
+    createManySupplier: { // args
+      data?: NexusGenInputs['SupplierCreateInput'][] | null; // [SupplierCreateInput!]
+    }
     createOneItem: { // args
       data: NexusGenInputs['ItemCreateInput']; // ItemCreateInput!
     }

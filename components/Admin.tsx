@@ -1,8 +1,8 @@
 import React from 'react'
-import { Box, Button, Flex, Grid, Heading } from 'theme-ui'
+import { Box, Button, Flex, Heading } from 'theme-ui'
 import { AdminProps } from '../pages/admin'
-import CreateItem from './AdminItem'
-import UpdateItem from './UpdateItem'
+import { ItemAdmin } from './ItemAdmin'
+import { SupplierAdmin } from './SupplierAdmin'
 
 const Admin: React.FC<AdminProps> = ({ items, suppliers }) => {
   return (
@@ -20,10 +20,8 @@ const Admin: React.FC<AdminProps> = ({ items, suppliers }) => {
           <Button mr={2}>מוצרים</Button>
           <Button mr={2}>ספקים</Button>
         </Box>
-        <Grid sx={{ width: '100%' }}>
-          <CreateItem />
-          <UpdateItem items={items} />
-        </Grid>
+        <ItemAdmin items={items} />
+        <SupplierAdmin suppliers={suppliers} />
       </Flex>
     </React.Fragment>
   )

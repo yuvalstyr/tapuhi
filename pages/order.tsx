@@ -1,11 +1,11 @@
 import { useMachine } from '@xstate/react'
-import { EventsEnum } from '../machine/orderFormMachine.types'
+import { EventsEnum } from '../machine/FormMachine.types'
 import { NextPage } from 'next'
 import React from 'react'
 import { Box, Button, Heading, Spinner } from 'theme-ui'
 import ReceptionForm, { FormProps } from '../components/ReceptionForm'
 import prisma from '../lib/prisma'
-import { orderFormMachine } from '../machine/OrderFormMachine'
+import { FormMachine } from '../machine/FormMachine'
 import { inspect } from '@xstate/inspect'
 
 if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
@@ -30,7 +30,7 @@ export async function getServerSideProps() {
 
 const Order: NextPage<FormProps> = ({ items, suppliers }) => {
   const doDev = process.env.NODE_ENV === 'development'
-  const [current, send] = useMachine(orderFormMachine, { devTools: doDev })
+  const [current, send] = useMachine(FormMachine, { devTools: doDev })
   if (current.matches('idle'))
     return <ReceptionForm items={items} suppliers={suppliers} send={send} />
   if (current.matches('submiting'))

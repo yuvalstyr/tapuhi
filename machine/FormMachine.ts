@@ -1,8 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { Item, Order, Prisma } from '@prisma/client'
+import { Item, Order, Prisma, Supplier } from '@prisma/client'
 import request from 'graphql-request'
 import { assign, Machine } from 'xstate'
-import { CREATE_ITEM, CREATE_ORDER, UPDATE_ITEM } from '../lib/gql'
+import {
+  CREATE_ITEM,
+  CREATE_ORDER,
+  CREATE_SUPPLIER,
+  UPDATE_ITEM,
+  UPDATE_SUPPLIER,
+} from '../lib/gql'
 import {
   ICreateOrder,
   OrderFormContext,
@@ -26,6 +32,18 @@ function updateItem(variables: Prisma.ItemUpdateArgs) {
 function createItem(variables: Prisma.ItemCreateInput) {
   if (!process.env.API_URL) return Promise.reject('no API URL')
   return request<Item>(process.env.API_URL, CREATE_ITEM, { variables })
+}
+function createSupplier(variables: Prisma.SupplierCreateInput) {
+  if (!process.env.API_URL) return Promise.reject('no API URL')
+  return request<Supplier>(process.env.API_URL, CREATE_SUPPLIER, { variables })
+}
+function updateSupplier(variables: Prisma.SupplierUpdateArgs) {
+  if (!process.env.API_URL) return Promise.reject('no API URL')
+  const { where, data } = variables
+  return request<Supplier>(process.env.API_URL, UPDATE_SUPPLIER, {
+    where,
+    data,
+  })
 }
 
 export const FormMachine = Machine<
@@ -55,6 +73,10 @@ export const FormMachine = Machine<
             return updateItem(mutation.args)
           if (mutation.type === MutationTypesEnum.createItem)
             return createItem(mutation.data)
+          if (mutation.type === MutationTypesEnum.updateSupplier)
+            return updateSupplier(mutation.args)
+          if (mutation.type === MutationTypesEnum.createSupplier)
+            return createSupplier(mutation.data)
           throw new Error('wrong mutation type')
         },
         onDone: {
