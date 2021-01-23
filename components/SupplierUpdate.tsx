@@ -1,4 +1,4 @@
-import { Item, Supplier } from '@prisma/client'
+import { Supplier } from '@prisma/client'
 import React from 'react'
 import ReactSelect from 'react-select'
 import { Box, Card, Heading } from 'theme-ui'
@@ -12,7 +12,6 @@ const ItemUpdate: React.FC<IProps> = ({ suppliers }) => {
   const [supplier, setSupplier] = React.useState('')
   const updateSupplier = suppliers.filter((s) => s.name === supplier)
   const oneSupplierSelected = updateSupplier.length === 1
-  debugger
   const options = suppliers.map((s) => ({ label: s.name, value: s.name }))
   return (
     <Card>

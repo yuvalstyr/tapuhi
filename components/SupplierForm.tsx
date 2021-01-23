@@ -42,7 +42,7 @@ export const SupplierForm: React.FC<IProps> = ({ updateSupplier, send }) => {
         if (key == 'id') return { ...acc }
         return { ...acc, [key]: { set: val } }
       }, {} as Omit<Prisma.SupplierUpdateInput, 'id'>)
-      const where = { id: data.id }
+      const where = { id: +data.id }
 
       send({
         type: EventsEnum.SUBMIT,
