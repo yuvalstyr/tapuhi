@@ -1,26 +1,33 @@
+import { Item } from '@prisma/client'
 import * as React from 'react'
-import { Item, saleType } from '@prisma/client'
-import { FiEdit2 } from 'react-icons/fi'
-import { GoCheck } from 'react-icons/go'
-import { Card, Divider, Flex, Grid, Heading, IconButton, Label } from 'theme-ui'
-import { itemsArray } from '../lib/item'
+import { GoPlus } from 'react-icons/go'
+import { Card, Divider, Flex, Heading, IconButton } from 'theme-ui'
+import { Append, Ioptions, Register, Remove } from '../type'
 import Icon from './Icon'
 import { ItemField, ItemRow } from './ItemRow'
+<<<<<<< HEAD
 import { Ioptions, Register, Remove } from '../type'
+=======
+>>>>>>> paljs
 
 interface IItemList {
   fields: ItemField[]
   remove: Remove
   items: Ioptions[]
+<<<<<<< HEAD
+=======
+  append: Append
+  itemsArray: Item[]
+>>>>>>> paljs
 }
 
-export const saleTypeTranslate: Partial<Record<saleType, string>> = {
-  KG: 'ק"ג',
-  PACK: 'חבילה',
-  UNIT: 'יחידה',
-  WIEGHT_PACK: 'יחידה שקולה',
+const defaultValues = {
+  name: { value: '', label: '' },
+  price: '',
+  quantity: '',
 }
 
+<<<<<<< HEAD
 function getSaleType(itemsArray: Item[], item) {
   const saleType = itemsArray.filter((i) => i.name === item)[0]?.saleType
   return saleTypeTranslate[saleType]
@@ -28,16 +35,25 @@ function getSaleType(itemsArray: Item[], item) {
 
 const ItemList: React.FC<IItemList> = ({ fields, items, remove }) => {
   const [editable, setEditable] = React.useState(false)
+=======
+const ItemList: React.FC<IItemList> = ({
+  fields,
+  remove,
+  items,
+  append,
+  itemsArray,
+}) => {
+>>>>>>> paljs
   return (
     <Card sx={{ flexShrink: 1, overflow: 'auto' }}>
       <Flex sx={{ position: 'sticky', top: 0, background: 'secondary' }}>
         <Heading sx={{ flexGrow: 1 }}>רשימת מוצרים</Heading>
         <IconButton
           type="button"
-          onClick={() => setEditable(!editable)}
+          onClick={() => append(defaultValues)}
           sx={{ color: 'primary' }}
         >
-          <Icon size={2}>{editable ? <GoCheck /> : <FiEdit2 />}</Icon>
+          <Icon size={2}>{<GoPlus />}</Icon>
         </IconButton>
       </Flex>
 
@@ -45,6 +61,7 @@ const ItemList: React.FC<IItemList> = ({ fields, items, remove }) => {
         return (
           <React.Fragment key={field.id}>
             <Divider />
+<<<<<<< HEAD
             {editable ? (
               <ItemRow {...{ field, index, remove, items }} />
             ) : (
@@ -64,6 +81,9 @@ const ItemList: React.FC<IItemList> = ({ fields, items, remove }) => {
                 <Label>{`${field.price} ש"ח`}</Label>
               </Grid>
             )}
+=======
+            <ItemRow {...{ field, index, remove, items, itemsArray }} />
+>>>>>>> paljs
           </React.Fragment>
         )
       })}

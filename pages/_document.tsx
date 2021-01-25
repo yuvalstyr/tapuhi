@@ -23,7 +23,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="he">
-        <body dir="rtl">
+        <body>
           <Meta />
           <Main />
           <NextScript />

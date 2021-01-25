@@ -4,7 +4,7 @@
   },
   "editor.formatOnSave": true,
   "editor.cursorStyle": "line",
-  "editor.cursorWidth": 5,
+  "editor.cursorWidth": 4,
   "editor.cursorBlinking": "solid",
   "peacock.color": "#47ada5",
   "debug.node.autoAttach": "off",
@@ -13,6 +13,21 @@
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
     "**/.hg/store/**": true
+  },
+  "editor.snippetSuggestions": "top",
+  "editor.wordBasedSuggestions": false,
+  "files.exclude": {
+    "USE_GITIGNORE": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.build": true,
+    "**/.gh-pages": true,
+    "package-lock.json":true
   },
   "prisma.plugin.nextjs.hasPrompted": true,
   "workbench.colorCustomizations": {
@@ -29,11 +44,14 @@
     "titleBar.activeBackground": "#36225b",
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#36225b99",
-    "titleBar.inactiveForeground": "#e7e7e799"
+    "titleBar.inactiveForeground": "#e7e7e799",
+    "editorCursor.foreground": "#F78C6C",
+    "terminalCursor.foreground": "#F78C6C",
+    "editor.lineHighlightBorder": "#012B4D"
   },
   "peacock.remoteColor": "#36225b",
   "colorize.languages": [
     "javascript",
-    "typesctipt"
+    "typesctipt",
   ]
 }

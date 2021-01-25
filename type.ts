@@ -14,3 +14,10 @@ export interface Ioptions {
   value: string
   label: string
 }
+
+export type OrderFormData = {
+  date: Date
+  orderNumber?: string
+  supplier: Ioptions
+  items: { name: Ioptions; price: number; quantity: number }[]
+}

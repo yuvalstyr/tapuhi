@@ -1,0 +1,23 @@
+overwrite: true
+schema: 'generated/schema.graphql'
+documents: 'graphql/**/*.graphql'
+generates:
+  generated/index.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - typescript-graphql-request
+    config:
+      withHooks: true
+      withComponent: false
+      withHOC: false
+      withMutationFn: false
+      maybeValue: T | undefined
+      reactApolloVersion: 3
+      scalars:
+        DateTime: string
+        JSON: unknown
+        Upload: unknown
+        Time: string
+        Date: string
+        Long: number

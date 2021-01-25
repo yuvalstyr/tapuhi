@@ -1,8 +1,8 @@
-import { jsx, Image, Flex, Text } from 'theme-ui'
 import useWindowSize from '../lib/useWindows'
-
-/** @jsxRuntime classic /
+/** @jsxRuntime classic */
 /** @jsx jsx */
+
+import { jsx, Image, Flex, Text } from 'theme-ui'
 
 function Logo() {
   return (
@@ -28,6 +28,7 @@ const Layout: React.FC = ({ children }) => {
         display: 'flex',
         flexDirection: 'column',
         height: height,
+        direction: 'rtl',
       }}
     >
       <header

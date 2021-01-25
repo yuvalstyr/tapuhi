@@ -1,10 +1,11 @@
 module.exports = {
-  env: {
-    browser: true,
-    node: true,
-    es2020: true,
-  },
   parser: '@typescript-eslint/parser',
+  extends: [
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
+  ],
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
@@ -12,32 +13,19 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['@typescript-eslint', 'react', 'prettier'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings',
-    'plugin:import/typescript',
-    'prettier',
-    'prettier/@typescript-eslint',
-    'prettier/react',
-  ],
   rules: {
-    'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
-    'import/extensions': 0,
+    'no-unused-vars': [1, { vars: 'all', args: 'after-used' }],
+    '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/explicit-function-return-type': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     'react/prop-types': 0,
-    'react/jsx-props-no-spreading': ['error', { custom: 'ignore' }],
-    'prettier/prettier': 'error',
-    'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': ['error'],
-    'react/jsx-fragments': 'off',
+    'no-empty-function': 'off',
+    'no-console': [1],
+    'react/display-name': [0],
   },
   settings: {
-    'import/resolver': {
-      node: {
-        paths: ['~'],
-      },
+    react: {
+      version: 'detect',
     },
   },
 }

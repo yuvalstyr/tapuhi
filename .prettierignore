@@ -7,3 +7,5 @@ yarn.lock
 package-lock.json
 public
 item.ts
+generated
+nexus-typegen.ts

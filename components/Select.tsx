@@ -1,18 +1,31 @@
-import React from 'react'
-import { Control, Controller } from 'react-hook-form'
+import React, { CSSProperties } from 'react'
+import { Controller, useFormContext } from 'react-hook-form'
 import ReactSelect from 'react-select'
 import { Grid, Label } from 'theme-ui'
+<<<<<<< HEAD
 import { isSSR } from '../lib/isSSR'
 import { Ioptions, Errors, GetValues } from '../type'
+=======
+import { Ioptions } from '../type'
+>>>>>>> paljs
 import FormError from './FormError'
 
+interface ISelectProps {
+  options: Ioptions[]
+  label?: string
+  name: string
+  defaultValue?: number | string
+  attachToBodyTrue?: boolean
+  placeholder: string
+}
+
 export const reactSelectStyles = {
-  container: (provided) => ({
+  container: (provided: CSSProperties) => ({
     ...provided,
     height: '100%',
     flexGrow: 1,
   }),
-  control: (provided, state) => {
+  control: (provided: CSSProperties, state: any) => {
     return {
       ...provided,
       border: 'solid 1px #F5F5F5',
@@ -25,6 +38,7 @@ export const reactSelectStyles = {
   },
 }
 
+<<<<<<< HEAD
 interface ISelectProps {
   control: Control
   items: Ioptions[]
@@ -35,11 +49,13 @@ interface ISelectProps {
   defaultValue: string
 }
 
+=======
+>>>>>>> paljs
 export const Select: React.FC<ISelectProps> = ({
-  control,
-  items,
+  options,
   label,
   name,
+<<<<<<< HEAD
   errors,
   getValues,
   defaultValue,
@@ -48,25 +64,49 @@ export const Select: React.FC<ISelectProps> = ({
 
   return (
     <Grid columns={2} sx={{ gridTemplateColumns, alignItems: 'center' }}>
+=======
+  defaultValue,
+  attachToBodyTrue,
+  placeholder,
+}) => {
+  const { errors, getValues, control } = useFormContext()
+  const gridTemplateColumns = label ? '1fr 3fr' : '1fr'
+  const defaultOption = defaultValue
+    ? { value: defaultValue, label: defaultValue }
+    : { value: '', label: '' }
+
+  return (
+    <Grid columns={2} sx={{ gridTemplateColumns, alignContent: 'baseline' }}>
+>>>>>>> paljs
       {label && <Label>{label}</Label>}
 
       <Controller
         inputId="react-select"
-        as={ReactSelect}
-        options={items}
+        as={<ReactSelect />}
+        options={options}
         name={name}
+<<<<<<< HEAD
         control={control}
         isClearable={label ? true : false}
         defaultValue={{ value: defaultValue, label: defaultValue }}
         menuPlacement={'auto'}
         menuPosition="absolute"
         menuPortalTarget={document.body}
+=======
+        menuPlacement={'auto'}
+        menuPosition="absolute"
+        defaultValue={defaultOption}
+        menuPortalTarget={attachToBodyTrue ? document.body : ''}
+        isClearable
+        control={control}
+        placeholder={placeholder}
+>>>>>>> paljs
         rules={{
           validate: () => (getValues(name)?.value ? true : false),
         }}
       />
 
-      <FormError name={name} errors={errors} />
+      <FormError errors={errors} name={name} />
     </Grid>
   )
 }

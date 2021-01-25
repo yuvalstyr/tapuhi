@@ -15,6 +15,7 @@ enum saleType {
 }
 
 model OrderItem {
+<<<<<<< HEAD
   id            Int      @id @default(autoincrement())
   item          Item     @relation(fields: [itemId], references: [id])
   quantity      Float
@@ -24,6 +25,17 @@ model OrderItem {
   itemId        String
   supplier      Supplier @relation(fields: [supplierId], references: [id])
   supplierId    Int
+=======
+  id         Int      @id @default(autoincrement())
+  item       Item     @relation(fields: [itemId], references: [id])
+  quantity   Float
+  price      Float
+  Order      Order    @relation(fields: [orderId], references: [id])
+  orderId    Int
+  itemId     String
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+  supplierId Int
+>>>>>>> paljs
 }
 
 model Item {
@@ -38,11 +50,13 @@ model Item {
 }
 
 model Order {
-  id         Int         @id @default(autoincrement())
-  date       DateTime
-  supplier   Supplier    @relation(fields: [supplierId], references: [id])
-  supplierId Int
-  items      OrderItem[]
+  id            Int         @id @default(autoincrement())
+  date          DateTime
+  supplier      Supplier    @relation(fields: [supplierId], references: [id])
+  supplierId    Int
+  receiptNumber String?
+  /// @onDelete(CASCADE)
+  items         OrderItem[]
 }
 
 model Supplier {
