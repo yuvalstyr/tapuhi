@@ -2,12 +2,7 @@ import React, { CSSProperties } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import ReactSelect from 'react-select'
 import { Grid, Label } from 'theme-ui'
-<<<<<<< HEAD
-import { isSSR } from '../lib/isSSR'
-import { Ioptions, Errors, GetValues } from '../type'
-=======
 import { Ioptions } from '../type'
->>>>>>> paljs
 import FormError from './FormError'
 
 interface ISelectProps {
@@ -38,33 +33,10 @@ export const reactSelectStyles = {
   },
 }
 
-<<<<<<< HEAD
-interface ISelectProps {
-  control: Control
-  items: Ioptions[]
-  label?: string
-  name: string
-  errors: Errors
-  getValues: GetValues
-  defaultValue: string
-}
-
-=======
->>>>>>> paljs
 export const Select: React.FC<ISelectProps> = ({
   options,
   label,
   name,
-<<<<<<< HEAD
-  errors,
-  getValues,
-  defaultValue,
-}) => {
-  const gridTemplateColumns = label ? '1fr 3fr' : '1fr'
-
-  return (
-    <Grid columns={2} sx={{ gridTemplateColumns, alignItems: 'center' }}>
-=======
   defaultValue,
   attachToBodyTrue,
   placeholder,
@@ -77,7 +49,6 @@ export const Select: React.FC<ISelectProps> = ({
 
   return (
     <Grid columns={2} sx={{ gridTemplateColumns, alignContent: 'baseline' }}>
->>>>>>> paljs
       {label && <Label>{label}</Label>}
 
       <Controller
@@ -85,14 +56,6 @@ export const Select: React.FC<ISelectProps> = ({
         as={<ReactSelect />}
         options={options}
         name={name}
-<<<<<<< HEAD
-        control={control}
-        isClearable={label ? true : false}
-        defaultValue={{ value: defaultValue, label: defaultValue }}
-        menuPlacement={'auto'}
-        menuPosition="absolute"
-        menuPortalTarget={document.body}
-=======
         menuPlacement={'auto'}
         menuPosition="absolute"
         defaultValue={defaultOption}
@@ -100,7 +63,6 @@ export const Select: React.FC<ISelectProps> = ({
         isClearable
         control={control}
         placeholder={placeholder}
->>>>>>> paljs
         rules={{
           validate: () => (getValues(name)?.value ? true : false),
         }}

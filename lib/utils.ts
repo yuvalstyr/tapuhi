@@ -83,11 +83,7 @@ export function getIndexByDate(fields: IFieldIndex[], date: Date): number {
   return counter < 0 ? counter : counter + 1
 }
 
-<<<<<<< HEAD
-export async function convertPromiseAll<T>(result: PromiseSettledResult<T>[]) {
-=======
 export function convertPromiseAll<T>(result: PromiseSettledResult<T>[]) {
->>>>>>> paljs
   const successCount = result.filter((r) => r.status === 'fulfilled').length
   const errors: string[] = result
     .filter((r) => r.status === 'rejected')
@@ -98,11 +94,8 @@ export function convertPromiseAll<T>(result: PromiseSettledResult<T>[]) {
     })
   return { errors, successCount }
 }
-<<<<<<< HEAD
-=======
 
 export function getSaleType(itemsArray: Item[], item: Ioptions) {
   const saleType = itemsArray.filter((i) => i.name === item.value)[0]?.saleType
   return saleTypeTranslate[saleType]
 }
->>>>>>> paljs

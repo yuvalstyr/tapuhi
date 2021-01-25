@@ -1,11 +1,6 @@
 import { Item, Supplier } from '@prisma/client'
 import React from 'react'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
-<<<<<<< HEAD
-import { Box, Button, Card } from 'theme-ui'
-import { itemsArray } from '../lib/item'
-import { AddItem } from './AddItem'
-=======
 import { Box, Button } from 'theme-ui'
 import {
   EventsEnum,
@@ -13,7 +8,6 @@ import {
   SubmitEvent,
 } from '../machine/FormMachine.types'
 import { Ioptions, OrderFormData } from '../type'
->>>>>>> paljs
 import ItemList from './ItemList'
 import { OrderDetails } from './OrderDetails'
 
@@ -30,14 +24,6 @@ const defaultValues = {
   orderNumber: '',
 }
 
-<<<<<<< HEAD
-const ReceptionForm: React.FC = () => {
-  const methods = useForm({
-    mode: 'onTouched',
-    defaultValues,
-  })
-  const { register, control, handleSubmit } = methods
-=======
 const getIdfromArray = (arr: (Item | Supplier)[], name: string) => {
   return arr.filter((i) => i.name === name)[0].id
 }
@@ -69,7 +55,6 @@ const ReceptionForm: React.FC<FormProps> = ({
     defaultValues,
   })
   const { handleSubmit, control, register } = methods
->>>>>>> paljs
   const { fields, append, remove } = useFieldArray({ control, name: 'items' })
 
   const onSubmit = (data: OrderFormData) => {
@@ -105,22 +90,10 @@ const ReceptionForm: React.FC<FormProps> = ({
         }}
         onSubmit={handleSubmit(onSubmit)}
       >
-<<<<<<< HEAD
-        <Card sx={{ flexShrink: 0 }}>
-          <OrderDetails {...{ items }} />
-        </Card>
-        <Card sx={{ flexShrink: 0 }}>
-          <AddItem {...{ items, append }} />
-        </Card>
-        {fields.length > 0 && (
-          <ItemList {...{ fields, register, remove, items }} />
-        )}
-=======
         <OrderDetails suppliers={suppliers} />
         <ItemList
           {...{ fields, register, remove, items, append, itemsArray }}
         />
->>>>>>> paljs
         <Button mb="1">צור הזמנה</Button>
       </Box>
     </FormProvider>
