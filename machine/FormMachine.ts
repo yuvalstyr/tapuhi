@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { Item, Order, Prisma, Supplier } from '@prisma/client'
 import request from 'graphql-request'
+import { mutate } from 'swr'
 import { assign, Machine } from 'xstate'
 import {
   CREATE_ITEM,
   CREATE_ORDER,
   CREATE_SUPPLIER,
+  ITEMS,
   UPDATE_ITEM,
   UPDATE_SUPPLIER,
 } from '../lib/gql'
@@ -50,52 +52,65 @@ export const FormMachine = Machine<
   OrderFormContext,
   OrderFormSchema,
   OrderFormEvent
->({
-  initial: OrderFormStates.idle,
-  states: {
-    idle: {
-      on: {
-        SUBMIT: {
-          target: OrderFormStates.submiting,
-          actions: assign<OrderFormContext, SubmitEvent>({
-            mutation: (_context, event: SubmitEvent) => event.mutation,
-          }),
+>(
+  {
+    initial: OrderFormStates.idle,
+    states: {
+      idle: {
+        on: {
+          SUBMIT: {
+            target: OrderFormStates.submiting,
+            actions: assign<OrderFormContext, SubmitEvent>({
+              mutation: (_context, event: SubmitEvent) => event.mutation,
+            }),
+          },
         },
       },
-    },
-    [OrderFormStates.submiting]: {
-      invoke: {
-        id: 'sendForm',
-        src: ({ mutation }) => {
-          if (mutation.type === MutationTypesEnum.createOrder)
-            return createOrder(mutation.data)
-          if (mutation.type === MutationTypesEnum.updateItem)
-            return updateItem(mutation.args)
-          if (mutation.type === MutationTypesEnum.createItem)
-            return createItem(mutation.data)
-          if (mutation.type === MutationTypesEnum.updateSupplier)
-            return updateSupplier(mutation.args)
-          if (mutation.type === MutationTypesEnum.createSupplier)
-            return createSupplier(mutation.data)
-          throw new Error('wrong mutation type')
-        },
-        onDone: {
-          target: OrderFormStates.success,
-        },
-        onError: {
-          target: OrderFormStates.error,
+      [OrderFormStates.submiting]: {
+        invoke: {
+          id: 'sendForm',
+          src: ({ mutation }) => {
+            if (mutation.type === MutationTypesEnum.createOrder)
+              return createOrder(mutation.data)
+            if (mutation.type === MutationTypesEnum.updateItem)
+              return updateItem(mutation.args)
+            if (mutation.type === MutationTypesEnum.createItem)
+              return createItem(mutation.data)
+            if (mutation.type === MutationTypesEnum.updateSupplier)
+              return updateSupplier(mutation.args)
+            if (mutation.type === MutationTypesEnum.createSupplier)
+              return createSupplier(mutation.data)
+            throw new Error('wrong mutation type')
+          },
+          onDone: {
+            target: OrderFormStates.success,
+          },
+          onError: {
+            target: OrderFormStates.error,
+          },
         },
       },
-    },
-    success: {
-      on: {
-        NEW: OrderFormStates.idle,
+      success: {
+        on: {
+          NEW: {
+            target: OrderFormStates.idle,
+            actions: ['mutate'],
+          },
+        },
       },
-    },
-    error: {
-      on: {
-        NEW: OrderFormStates.idle,
+      error: {
+        on: {
+          NEW: OrderFormStates.idle,
+        },
       },
     },
   },
-})
+  {
+    actions: {
+      mutate: (context, event) => {
+        console.log('context', context)
+        mutate(ITEMS)
+      },
+    },
+  },
+)

@@ -21,10 +21,14 @@ const ItemUpdate: React.FC<IProps> = ({ suppliers }) => {
           inputId="react-select"
           options={options}
           onChange={(e) => setSupplier(e?.value ?? '')}
+          value={{ label: supplier, value: supplier }}
         />
       </Box>
       {oneSupplierSelected && (
-        <SupplierAdminCard updateSupplier={updateSupplier[0]} />
+        <SupplierAdminCard
+          updateSupplier={updateSupplier[0]}
+          setSupplier={setSupplier}
+        />
       )}
     </Card>
   )

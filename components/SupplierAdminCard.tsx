@@ -8,9 +8,13 @@ import { SupplierForm } from './SupplierForm'
 
 export interface IProps {
   updateSupplier?: Supplier
+  setSupplier?: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const SupplierAdmin: React.FC<IProps> = ({ updateSupplier }) => {
+export const SupplierAdmin: React.FC<IProps> = ({
+  updateSupplier,
+  setSupplier,
+}) => {
   const [current, send] = useMachine(FormMachine)
   if (current.matches('idle'))
     return <SupplierForm updateSupplier={updateSupplier} send={send} />
@@ -27,7 +31,12 @@ export const SupplierAdmin: React.FC<IProps> = ({ updateSupplier }) => {
     return (
       <Box>
         <Heading>Error 😥</Heading>
-        <Button onClick={() => send(EventsEnum.NEW)}>
+        <Button
+          onClick={() => {
+            setSupplier && setSupplier('')
+            send(EventsEnum.NEW)
+          }}
+        >
           משהו השתבש, ניסיון נוסף?
         </Button>
       </Box>

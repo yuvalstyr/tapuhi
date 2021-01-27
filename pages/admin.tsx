@@ -1,8 +1,16 @@
-import prisma from '../lib/prisma'
+import { Item, Supplier } from '@prisma/client'
+import { request } from 'graphql-request'
 import { NextPage } from 'next'
 import React from 'react'
-import { Item, Supplier } from '@prisma/client'
 import Admin from '../components/Admin'
+import { ITEMS, SUPLLIERS } from '../lib/gql'
+
+export const fetcher = (query: string) => {
+  if (process.env.API_URL) {
+    return request(process.env.API_URL, query)
+  }
+  throw new Error('no api url provided')
+}
 
 export interface AdminProps {
   items: Item[]
@@ -10,15 +18,12 @@ export interface AdminProps {
 }
 
 export async function getServerSideProps() {
-  const results = await Promise.all([
-    prisma.item.findMany(),
-    prisma.supplier.findMany(),
-  ])
-  prisma.$disconnect()
+  const { findManyItem: items } = await fetcher(ITEMS)
+  const { findManySupplier: suppliers } = await fetcher(SUPLLIERS)
   return {
     props: {
-      items: results[0],
-      suppliers: results[1],
+      items,
+      suppliers,
     },
   }
 }

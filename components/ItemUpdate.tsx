@@ -21,9 +21,12 @@ const ItemUpdate: React.FC<IProps> = ({ items }) => {
           inputId="react-select"
           options={options}
           onChange={(e) => setItem(e?.value ?? '')}
+          value={{ label: item, value: item }}
         />
       </Box>
-      {oneItemSelected && <ItemAdmin updateItem={updateItem[0]} />}
+      {oneItemSelected && (
+        <ItemAdmin updateItem={updateItem[0]} setItem={setItem} />
+      )}
     </Card>
   )
 }

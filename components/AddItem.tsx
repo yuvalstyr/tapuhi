@@ -1,7 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, Grid, Heading, Input, Label } from 'theme-ui'
-import { isSSR } from '../lib/isSSR'
 import { Append, Ioptions } from '../type'
 import FormError from './FormError'
 import { Select } from './Select'

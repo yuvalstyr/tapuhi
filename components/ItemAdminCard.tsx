@@ -8,21 +8,30 @@ import { ItemForm } from './ItemForm'
 
 export interface IProps {
   updateItem?: Item
+  setItem?: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const AdminItem: React.FC<IProps> = ({ updateItem }) => {
+export const AdminItem: React.FC<IProps> = ({ updateItem, setItem }) => {
   const [current, send] = useMachine(FormMachine)
   if (current.matches('idle'))
     return <ItemForm updateItem={updateItem} send={send} />
   if (current.matches('submiting'))
     return <Spinner size={96} strokeWidth={6} sx={{ alignSelf: 'center' }} />
-  if (current.matches('success'))
+  if (current.matches('success')) {
     return (
       <React.Fragment>
         <Heading>Form Submitetd!!!</Heading>
-        <Button onClick={() => send(EventsEnum.NEW)}>הזמנה נוספת?</Button>
+        <Button
+          onClick={() => {
+            setItem && setItem('')
+            send(EventsEnum.NEW)
+          }}
+        >
+          הזמנה נוספת?
+        </Button>
       </React.Fragment>
     )
+  }
   if (current.matches('error'))
     return (
       <Box>
