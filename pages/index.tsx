@@ -1,13 +1,23 @@
 import { NextPage } from 'next'
+import Link from 'next/link'
 import React from 'react'
-import { NavLink } from 'theme-ui'
+import { Button, Flex, NavLink } from 'theme-ui'
 
 const index: NextPage = () => {
   return (
     <React.Fragment>
-      <NavLink href="/admin" p={2}>
-        הזמנה חדשה
-      </NavLink>
+      <Flex sx={{ flexDirection: 'column' }}>
+        <Link href="/order">
+          <Button p={2} m={2}>
+            הזמנה חדשה
+          </Button>
+        </Link>
+        <Link href="/admin">
+          <Button p={2} m={2}>
+            ניהול תוכן
+          </Button>
+        </Link>
+      </Flex>
     </React.Fragment>
   )
 }

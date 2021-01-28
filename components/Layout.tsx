@@ -2,7 +2,10 @@ import useWindowSize from '../lib/useWindows'
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
-import { jsx, Image, Flex, Text } from 'theme-ui'
+import { jsx, Image, Flex, Text, Button } from 'theme-ui'
+import React from 'react'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 function Logo() {
   return (
@@ -17,6 +20,18 @@ function Logo() {
         }}
       />
     </Flex>
+  )
+}
+
+const ReturnButton: React.FC = () => {
+  const { pathname } = useRouter()
+  if (pathname == '/') return null
+  return (
+    <Link href="/">
+      <Button pt={2} pb={2} mb={2} mt={2}>
+        חזרה
+      </Button>
+    </Link>
   )
 }
 
@@ -43,6 +58,7 @@ const Layout: React.FC = ({ children }) => {
         }}
       >
         <Logo />
+        <ReturnButton />
       </header>
       <main
         sx={{
