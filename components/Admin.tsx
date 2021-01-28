@@ -1,5 +1,5 @@
 import { Item } from '@prisma/client'
-import { ITEMS } from 'lib/gql'
+import { ITEMS } from '../lib/gql'
 import React from 'react'
 import useSWR, { responseInterface } from 'swr'
 import { Box, Flex, Grid, Heading } from 'theme-ui'

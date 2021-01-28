@@ -2,7 +2,7 @@ import { Prisma, Supplier } from '@prisma/client'
 import { list, mutationField, nonNull } from 'nexus'
 import { convertPromiseAll } from '../../../../lib/utils'
 
-export const ItemCreateManyMutation = mutationField('createManySupplier', {
+export const SupplierCreateManyMutation = mutationField('createManySupplier', {
   type: nonNull('BatchPayload'),
   args: {
     data: list(nonNull('SupplierCreateInput')),
@@ -10,8 +10,8 @@ export const ItemCreateManyMutation = mutationField('createManySupplier', {
   async resolve(_parent, { data }, { prisma }) {
     if (!data) return { count: 0 }
 
-    const promises: Prisma.Prisma__ItemClient<Supplier>[] = data.map(
-      (i: Prisma.SupplierCreateInput) => {
+    const promises: Prisma.Prisma__SupplierClient<Supplier>[] = data.map(
+      (i: any) => {
         const { name } = i
         return prisma.supplier.create({
           data: {

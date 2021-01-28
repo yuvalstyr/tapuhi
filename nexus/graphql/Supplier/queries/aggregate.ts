@@ -11,6 +11,6 @@ export const SupplierAggregateQuery = queryField('aggregateSupplier', {
     take: 'Int',
   },
   resolve(_parent, args, { prisma, select }) {
-    return prisma.supplier.aggregate({ count: true }) as any
+    return prisma.supplier.aggregate({ ...args, ...select }) as any
   },
 })

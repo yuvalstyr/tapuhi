@@ -10,7 +10,7 @@ export const ItemCreateManyMutation = mutationField('createManyItem', {
   async resolve(_parent, { data }, { prisma }) {
     if (!data) return { count: 0 }
 
-    const promises: Prisma.Prisma__ItemClient<Item>[] = data.map((i) => {
+    const promises: Prisma.Prisma__ItemClient<Item>[] = data.map((i: any) => {
       const { category, name, saleType, description } = i
       return prisma.item.create({
         data: {

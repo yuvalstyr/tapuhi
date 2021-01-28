@@ -107,8 +107,7 @@ export const FormMachine = Machine<
   },
   {
     actions: {
-      mutate: (context, event) => {
-        console.log('context', context)
+      mutate: () => {
         mutate(ITEMS)
       },
     },
