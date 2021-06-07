@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
 import React from 'react'
-import { Button, Flex, NavLink } from 'theme-ui'
+import { Button, Flex } from 'theme-ui'
 
 const index: NextPage = () => {
   return (

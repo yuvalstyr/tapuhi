@@ -7,6 +7,10 @@ import ReceptionForm, { FormProps } from '../components/ReceptionForm'
 import prisma from '../lib/prisma'
 import { FormMachine } from '../machine/FormMachine'
 import { inspect } from '@xstate/inspect'
+import useSWR from 'swr'
+import { Item, Supplier } from '.prisma/client'
+import { ITEMS, SUPLLIERS } from '../lib/gql'
+import { fetcher } from './admin'
 
 if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
   inspect({
@@ -14,23 +18,26 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
   })
 }
 
-export async function getServerSideProps() {
-  const results = await Promise.all([
-    prisma.item.findMany(),
-    prisma.supplier.findMany(),
-  ])
-  prisma.$disconnect()
-  return {
-    props: {
-      items: results[0],
-      suppliers: results[1],
+const Order: NextPage<FormProps> = () => {
+  const { data: itemsData } = useSWR<{ ['findManyItem']: Item[] }, any>(
+    ITEMS,
+    fetcher,
+    {
+      revalidateOnFocus: false,
     },
-  }
-}
-
-const Order: NextPage<FormProps> = ({ items, suppliers }) => {
-  const doDev = process.env.NODE_ENV === 'development'
-  const [current, send] = useMachine(FormMachine, { devTools: doDev })
+  )
+  const { data: suppliersData } = useSWR<
+    { ['findManySupplier']: Supplier[] },
+    any
+  >(SUPLLIERS, fetcher, {
+    revalidateOnFocus: false,
+  })
+  const items = itemsData?.findManyItem
+  const suppliers = suppliersData?.findManySupplier
+  // const doDev = process.env.NODE_ENV === 'development'
+  const [current, send] = useMachine(FormMachine)
+  if (!items || !suppliers)
+    return <Spinner size={96} strokeWidth={6} sx={{ alignSelf: 'center' }} />
   if (current.matches('idle'))
     return <ReceptionForm items={items} suppliers={suppliers} send={send} />
   if (current.matches('submiting'))
@@ -38,7 +45,7 @@ const Order: NextPage<FormProps> = ({ items, suppliers }) => {
   if (current.matches('success'))
     return (
       <React.Fragment>
-        <Heading>Form Submitetd!!!</Heading>
+        <Heading>Form Submitted!!!</Heading>
         <Button onClick={() => send(EventsEnum.NEW)}>הזמנה נוספת?</Button>
       </React.Fragment>
     )

@@ -1,7 +1,9 @@
 import { Item, Supplier } from '@prisma/client'
+import { Spinner } from '@theme-ui/components'
 import { request } from 'graphql-request'
 import { NextPage } from 'next'
 import React from 'react'
+import useSWR from 'swr'
 import Admin from '../components/Admin'
 import { ITEMS, SUPLLIERS } from '../lib/gql'
 
@@ -17,18 +19,24 @@ export interface AdminProps {
   suppliers: Supplier[]
 }
 
-export async function getServerSideProps() {
-  const { findManyItem: items } = await fetcher(ITEMS)
-  const { findManySupplier: suppliers } = await fetcher(SUPLLIERS)
-  return {
-    props: {
-      items,
-      suppliers,
+const admin: NextPage<AdminProps> = () => {
+  const { data: itemsData } = useSWR<{ ['findManyItem']: Item[] }, any>(
+    ITEMS,
+    fetcher,
+    {
+      revalidateOnFocus: false,
     },
-  }
-}
-
-const admin: NextPage<AdminProps> = ({ items, suppliers }) => {
+  )
+  const { data: suppliersData } = useSWR<
+    { ['findManySupplier']: Supplier[] },
+    any
+  >(SUPLLIERS, fetcher, {
+    revalidateOnFocus: false,
+  })
+  const items = itemsData?.findManyItem
+  const suppliers = suppliersData?.findManySupplier
+  if (!items || !suppliers)
+    return <Spinner size={96} strokeWidth={6} sx={{ alignSelf: 'center' }} />
   return <Admin items={items} suppliers={suppliers} />
 }
 
